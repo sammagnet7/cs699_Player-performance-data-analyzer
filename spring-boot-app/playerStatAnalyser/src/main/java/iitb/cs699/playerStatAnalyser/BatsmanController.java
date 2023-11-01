@@ -8,16 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/cars")
-public class CarsController {
+@RequestMapping("/batsman")
+public class BatsmanController {
 	
 	@Autowired
-	private CarRepository carRepository;
+	private VsCountryBatsmanRepository vs_country_batsmanRepository;
 	
 	@GetMapping
-    public List<Cars> findAll() {
-		
-        return carRepository.findAll();
+    public List<VsCountryBatsman> findAll() {
+        return vs_country_batsmanRepository.findAll();
     }
 
 }
