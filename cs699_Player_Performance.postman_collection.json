@@ -1,0 +1,396 @@
+{
+	"info": {
+		"_postman_id": "1b29fe6e-1442-4ea3-a79c-f836529093dd",
+		"name": "cs699_Player_Performance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12064097"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/overview/all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/overview/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"overview",
+						"all"
+					]
+				},
+				"description": "Fetches overview of all players"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/overview/34102",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/overview/34102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"overview",
+						"34102"
+					]
+				},
+				"description": "Fetches overview of a particular player"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bowler/careeravg",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bowler/careeravg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bowler",
+						"careeravg"
+					]
+				},
+				"description": "Fetches career avg of all players"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bowler/careeravg/326016",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bowler/careeravg/326016",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bowler",
+						"careeravg",
+						"326016"
+					]
+				},
+				"description": "fetches particular bowler avg"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bowler/homevsaway",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bowler/homevsaway",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bowler",
+						"homevsaway"
+					]
+				},
+				"description": "All bowler"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bowler/homevsaway/326016",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bowler/homevsaway/326016",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bowler",
+						"homevsaway",
+						"326016"
+					]
+				},
+				"description": "Particular bowler"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bowler/vscountry",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bowler/vscountry",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bowler",
+						"vscountry"
+					]
+				},
+				"description": "All bowler"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bowler/vscountry/326016",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bowler/vscountry/326016",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bowler",
+						"vscountry",
+						"326016"
+					]
+				},
+				"description": "Particular bowler"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bowler/yearlystats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bowler/yearlystats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bowler",
+						"yearlystats"
+					]
+				},
+				"description": "All bowlers"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bowler/yearlystats/326016",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bowler/yearlystats/326016",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bowler",
+						"yearlystats",
+						"326016"
+					]
+				},
+				"description": "Particular bowler"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/batsman/careeravg",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/batsman/careeravg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"batsman",
+						"careeravg"
+					]
+				},
+				"description": "All batsman"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/batsman/careeravg/34102",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/batsman/careeravg/34102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"batsman",
+						"careeravg",
+						"34102"
+					]
+				},
+				"description": "Particular batsman"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/batsman/homevsaway",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/batsman/homevsaway",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"batsman",
+						"homevsaway"
+					]
+				},
+				"description": "All batsman"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/batsman/homevsaway/34102",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/batsman/homevsaway/34102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"batsman",
+						"homevsaway",
+						"34102"
+					]
+				},
+				"description": "Particular batsman"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/batsman/vscountry",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/batsman/vscountry",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"batsman",
+						"vscountry"
+					]
+				},
+				"description": "All batsman"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/batsman/vscountry/34102",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/batsman/vscountry/34102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"batsman",
+						"vscountry",
+						"34102"
+					]
+				},
+				"description": "Particular batsman"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/batsman/yearlystats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/batsman/yearlystats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"batsman",
+						"yearlystats"
+					]
+				},
+				"description": "All batsman"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/batsman/yearlystats/34102",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/batsman/yearlystats/34102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"batsman",
+						"yearlystats",
+						"34102"
+					]
+				},
+				"description": "Particular batsman"
+			},
+			"response": []
+		}
+	]
+}
