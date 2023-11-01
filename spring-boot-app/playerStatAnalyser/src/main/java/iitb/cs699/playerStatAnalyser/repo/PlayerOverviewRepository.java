@@ -6,6 +6,8 @@ import iitb.cs699.playerStatAnalyser.entity.PlayerOverview;
 
 public interface PlayerOverviewRepository extends JpaRepository<PlayerOverview, Integer> {
 	
+	PlayerOverview findBypId(int pid);
+	
 	
 
 }

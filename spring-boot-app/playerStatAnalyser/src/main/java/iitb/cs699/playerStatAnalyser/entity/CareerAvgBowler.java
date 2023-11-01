@@ -16,17 +16,30 @@ public class CareerAvgBowler {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int row_id;	
-	public int p_id;
+	
+	@Column(name ="p_id")
+	public int pId;
+	
 	public String span;
+	
 	public String inns;
+	
 	public String overs;
+	
 	public String mdns;
+	
 	public String runs;
+	
 	public String wkts;
+	
 	public String ave;
+	
 	public String econ;
+	
 	public String sr;
+	
 	public String caught;
+	
 	public String bowled;
 	
 	@Column(name="leg_before_wicket")

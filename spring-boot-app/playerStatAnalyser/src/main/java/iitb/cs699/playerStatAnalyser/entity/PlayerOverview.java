@@ -17,7 +17,8 @@ public class PlayerOverview {
 	@Id
 	private int row_id;	
 	
-	public int p_id;
+	@Column(name ="p_id")
+	public int pId;
 	
 	@Column(name = "full_name")
 	public String fullName;

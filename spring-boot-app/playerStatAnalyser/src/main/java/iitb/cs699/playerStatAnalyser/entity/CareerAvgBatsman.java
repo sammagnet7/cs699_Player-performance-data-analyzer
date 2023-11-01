@@ -17,7 +17,8 @@ public class CareerAvgBatsman {
 	@Id
 	private int row_id;
 	
-	public int p_id;
+	@Column(name ="p_id")
+	public int pId;
 	
 	public String span;
 	
