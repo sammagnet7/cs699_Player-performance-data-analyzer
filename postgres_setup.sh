@@ -15,14 +15,14 @@ psql -U cs699 -d player -h 127.0.0.1 -W
 CREATE TABLE player_overview(
 	row_id int,
     p_id int primary key,
-	"Full Name" VARCHAR(255),
-	"Born" VARCHAR(255),
-	"Age" VARCHAR(255),
-	"Batting Style" VARCHAR(255),
-	"Bowling Style" VARCHAR(255),
-	"Playing Role" VARCHAR(255),
+	full_name VARCHAR(255),
+	born VARCHAR(255),
+	age VARCHAR(255),
+	batting_style VARCHAR(255),
+	bowling_tyle VARCHAR(255),
+	playing_role VARCHAR(255),
     roll_id VARCHAR(255) NOT NULL,
-    "photo_link" VARCHAR(1024)
+    photo_link VARCHAR(1024)
 );
 
 #Table2: career_avg_batsman
@@ -44,6 +44,7 @@ CREATE TABLE career_avg_batsman(
       FOREIGN KEY(p_id) 
 	  REFERENCES player_overview(p_id)
 );
+
 
 #Table3: vs_country_batsman
 CREATE TABLE vs_country_batsman(
@@ -105,7 +106,7 @@ CREATE TABLE career_avg_bowler(
     sr VARCHAR(255),
     caught VARCHAR(255),
     bowled VARCHAR(255),
-    "leg before wicket" VARCHAR(255),
+    leg_before_wicket VARCHAR(255),
     CONSTRAINT fk_player
       FOREIGN KEY(p_id) 
 	  REFERENCES player_overview(p_id)
@@ -164,3 +165,17 @@ CREATE TABLE yearly_stats_bowler(
       FOREIGN KEY(p_id) 
 	  REFERENCES player_overview(p_id)
 );
+
+
+
+--------------------
+#Drop table scripts
+--------------------
+drop table career_avg_bowler;
+drop table home_vs_away_batsman;
+drop table home_vs_away_bowler;
+drop table player_overview_v2;
+drop table vs_country_batsman;
+drop table vs_country_bowler;
+drop table yearly_stats_batsman;
+drop table yearly_stats_bowler;
