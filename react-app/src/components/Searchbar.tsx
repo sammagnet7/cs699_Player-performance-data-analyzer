@@ -1,11 +1,12 @@
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import InputGroup from 'react-bootstrap/InputGroup';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './Searchbar.css'
+import { PlayerContext, PlayerContextType } from '../App';
 
 export interface SearchProps {
-  onDataReceived: (data: Player) => void;
+  onDataReceived: () => void;
 }
 export interface Player {
   pId: number;
@@ -51,6 +52,7 @@ function Searchbar(setSearch: SearchProps) {
   const [predefinedSuggestions, setPredefinedSuggestions] = useState<Player[]>([]);
   const [validated, setValidated] = useState(false);
   const [valid, setValid] = useState(true);
+  const context = useContext(PlayerContext);
 
   useEffect(() => {
     // Try to fetch data from the local storage
@@ -119,7 +121,8 @@ function Searchbar(setSearch: SearchProps) {
     else {
       setSelectedSuggestion(player[0]);
       setSuggestions([]);
-      setSearch.onDataReceived(player[0]);
+      context?.setPlayer(player[0]);
+      setSearch.onDataReceived();
     }
   };
   return (
