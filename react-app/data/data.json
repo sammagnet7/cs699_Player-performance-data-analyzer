@@ -1,0 +1,134 @@
+[
+    {
+        "pId": 253802,
+        "fullName": "Virat Kohli",
+        "born": "November 05, 1988, Delhi",
+        "age": "34y 361d",
+        "battingStyle": "Right hand Bat",
+        "bowlingStyle": "Right arm Medium",
+        "playingRole": "Top order Batter",
+        "roll_id": "BAT",
+        "photoLink": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316600/316605.png"
+    },
+    {
+        "pId": 34102,
+        "fullName": "Rohit Gurunath Sharma",
+        "born": "April 30, 1987, Bansod, Nagpur, Maharashtra",
+        "age": "36y 185d",
+        "battingStyle": "Right hand Bat",
+        "bowlingStyle": "Right arm Offbreak",
+        "playingRole": "Top order Batter",
+        "roll_id": "BAT",
+        "photoLink": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316500/316584.png"
+    },
+    {
+        "pId": 422108,
+        "fullName": "Kannaur Lokesh Rahul",
+        "born": "April 18, 1992, Bangalore, Karnataka",
+        "age": "31y 197d",
+        "battingStyle": "Right hand Bat",
+        "bowlingStyle": null,
+        "playingRole": "Wicketkeeper Batter",
+        "roll_id": "BAT",
+        "photoLink": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319942.png"
+    },
+    {
+        "pId": 28235,
+        "fullName": "Shikhar Dhawan",
+        "born": "December 05, 1985, Delhi",
+        "age": "37y 331d",
+        "battingStyle": "Left hand Bat",
+        "bowlingStyle": "Right arm Offbreak",
+        "playingRole": "Opening Batter",
+        "roll_id": "BAT",
+        "photoLink": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316500/316524.png"
+    },
+    {
+        "pId": 28081,
+        "fullName": "Mahendra Singh Dhoni",
+        "born": "July 07, 1981, Ranchi, Bihar (now Jharkhand)",
+        "age": "42y 117d",
+        "battingStyle": "Right hand Bat",
+        "bowlingStyle": "Right arm Medium",
+        "playingRole": "Wicketkeeper Batter",
+        "roll_id": "BAT",
+        "photoLink": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_640,q_50/lsci/db/PICTURES/CMS/319900/319946.png"
+    },
+    {
+        "pId": 234675,
+        "fullName": "Ravindrasinh Anirudhsinh Jadeja",
+        "born": "December 06, 1988, Navagam-Khed, Saurashtra",
+        "age": "34y 330d",
+        "battingStyle": "Left hand Bat",
+        "bowlingStyle": "Slow Left arm Orthodox",
+        "playingRole": "Allrounder",
+        "roll_id": "ALL",
+        "photoLink": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316600/316600.png"
+    },
+    {
+        "pId": 625371,
+        "fullName": "Hardik Himanshu Pandya",
+        "born": "October 11, 1993, Choryasi, Gujarat",
+        "age": "30y 21d",
+        "battingStyle": "Right hand Bat",
+        "bowlingStyle": "Right arm Medium fast",
+        "playingRole": "Allrounder",
+        "roll_id": "ALL",
+        "photoLink": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319938.png"
+    },
+    {
+        "pId": 26421,
+        "fullName": "Ravichandran Ashwin",
+        "born": "September 17, 1986, Madras (now Chennai), Tamil Nadu",
+        "age": "37y 45d",
+        "battingStyle": "Right hand Bat",
+        "bowlingStyle": "Right arm Offbreak",
+        "playingRole": "Bowling Allrounder",
+        "roll_id": "ALL",
+        "photoLink": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316500/316521.png"
+    },
+    {
+        "pId": 625383,
+        "fullName": "Jasprit Jasbirsingh Bumrah",
+        "born": "December 06, 1993, Ahmedabad",
+        "age": "29y 330d",
+        "battingStyle": "Right hand Bat",
+        "bowlingStyle": "Right arm Fast",
+        "playingRole": "Bowler",
+        "roll_id": "BOW",
+        "photoLink": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/319900/319940.png"
+    },
+    {
+        "pId": 481896,
+        "fullName": "Mohammed Shami Ahmed",
+        "born": "September 03, 1990, Amroha, Uttar Pradesh",
+        "age": "33y 59d",
+        "battingStyle": "Right hand Bat",
+        "bowlingStyle": "Right arm Fast",
+        "playingRole": "Bowler",
+        "roll_id": "BOW",
+        "photoLink": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316600/316691.png"
+    },
+    {
+        "pId": 326016,
+        "fullName": "Bhuvneshwar Kumar Singh",
+        "born": "February 05, 1990, Meerut, Uttar Pradesh",
+        "age": "33y 269d",
+        "battingStyle": "Right hand Bat",
+        "bowlingStyle": "Right arm Medium",
+        "playingRole": "Bowler",
+        "roll_id": "BOW",
+        "photoLink": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316600/316658.png"
+    },
+    {
+        "pId": 376116,
+        "fullName": "Umeshkumar Tilak Yadav",
+        "born": "October 25, 1987, Nagpur, Maharashtra",
+        "age": "36y 7d",
+        "battingStyle": "Right hand Bat",
+        "bowlingStyle": "Right arm Fast",
+        "playingRole": "Bowler",
+        "roll_id": "BOW",
+        "photoLink": "https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316600/316667.png"
+    }
+]
