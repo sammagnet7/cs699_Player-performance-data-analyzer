@@ -113,6 +113,7 @@ function Searchbar(setSearch: SearchProps) {
     if (player.length == 0) {
       setValidated(true);
       setValid(false);
+      setSuggestions([]);
     }
     // once form submitted remove suggestions and return data to parent
     else {
@@ -125,7 +126,7 @@ function Searchbar(setSearch: SearchProps) {
     <>
       <h1 id='hero-text' className="display-4 fw-medium text-center mb-3">Player Performance <br />
         Visualiser</h1>
-      <Form id='searchbar' className="mx-auto" onSubmit={handleSubmit} noValidate validated={validated}>
+      <Form id='searchbar' className="mx-auto" onSubmit={handleSubmit} noValidate>
         <InputGroup size='lg' hasValidation>
           <Form.Control className={validated && !valid ? "is-invalid" : ""}
             placeholder="Enter Player Name"
@@ -144,12 +145,12 @@ function Searchbar(setSearch: SearchProps) {
       </Form>
 
       {query && (
-        <ul className="list-group">
+        <ul id='suggestionList' className="list-group">
           {suggestions.map((suggestion) => (
             <li className="list-group-item card mb-1" key={suggestion.pId} onClick={() => handleSuggestionClick(suggestion)}>
               <div className="row g-0">
                 <div className="col col-md-2">
-                  <img src={suggestion.photoLink} className="p-icon img-fluid" alt="..." />
+                  <img src={suggestion.photoLink} className="p-icon img-fluid my-auto" alt="..." />
                 </div>
                 <div className="col col-md-10">
                   <div className="card-body">
