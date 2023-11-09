@@ -96,6 +96,7 @@ function Searchbar(setSearch: SearchProps) {
     setSelectedSuggestion(suggestion);
     setQuery(suggestion.fullName);
     setSuggestions([]);
+    context?.setPlayer(suggestion);
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
