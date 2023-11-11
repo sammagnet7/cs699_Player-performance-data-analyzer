@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import './PlayerProfile.css'
 
-export interface BarPlotProps {
+export interface VscPlotProps {
     data: { country: string; initial: number; innings: number, sr: number }[];
 }
 
 
-const BarPlot: React.FC<BarPlotProps> = ({ data }) => {
+const VscPlot: React.FC<VscPlotProps> = ({ data }) => {
     const svgRef = useRef<SVGSVGElement | null>(null);
     const margin = { top: 20, right: 30, bottom: 40, left: 40 };
     const width = 700 - margin.left - margin.right;
@@ -39,7 +39,6 @@ const BarPlot: React.FC<BarPlotProps> = ({ data }) => {
             const yAxisGrid = d3.axisLeft(yScale).tickSize(-width);
             const xAxisGrid = d3.axisBottom(xScale).tickSize(-height);
 
-
             svg.selectAll('*').remove();
 
             const chart = svg
@@ -53,13 +52,17 @@ const BarPlot: React.FC<BarPlotProps> = ({ data }) => {
             chart.append('g')
                 .attr('class', 'grid')
                 .attr('transform', `translate(0, ${height})`)
-                .call(xAxisGrid);
+                .call(xAxisGrid)
+                .selectAll('text')
+                .style('text-anchor', 'middle')
+                .attr('dy', '1em');
             chart
-                .selectAll('rect')
+                .selectAll('.bar1')
                 .data(data)
                 .enter()
                 .append('rect')
-                .attr('x', (d) => xScale(d.country) || 0)
+                .attr('class', 'bar1')
+                .attr('x', (d) => xScale(d.country) as number || 0)
                 .attr('y', (d) => yScale(d.initial))
                 .attr('width', xScale.bandwidth())
                 .attr('height', 0) // Initial height set to 0
@@ -85,7 +88,7 @@ const BarPlot: React.FC<BarPlotProps> = ({ data }) => {
                         .style('font-size', '12px')
                         .style('visibility', 'hidden'); // Initially hidden
 
-                    bar.on('mouseover', function () {
+                    bar.on('mouseover', () => {
                         // Show the text on mouseover
                         bar.style("cursor", "pointer")
                         chart.selectAll('.text').style('visibility', 'visible');
@@ -95,13 +98,23 @@ const BarPlot: React.FC<BarPlotProps> = ({ data }) => {
                     });
                 });
 
-            chart
+
+            const path = chart
                 .append('path')
                 .datum(data)
                 .attr('fill', 'none')
                 .attr('stroke', '#ff6600')
                 .attr('stroke-width', 2)
                 .attr('d', generateScaledLine);
+
+            const length = path.node()?.getTotalLength();
+            path.attr("stroke-dasharray", length + " " + length)
+                .attr("stroke-dashoffset", length as number)
+                .transition()
+                .ease(d3.easeLinear)
+                .attr("stroke-dashoffset", 0)
+                .delay(500)
+                .duration(2500)
 
             chart
                 .selectAll('circle')
@@ -111,7 +124,33 @@ const BarPlot: React.FC<BarPlotProps> = ({ data }) => {
                 .attr('cx', (d) => xScale(d.country) as number + xScale.bandwidth() / 2 || 0)
                 .attr('cy', (d) => yScale(d.sr))
                 .attr('r', 4)
-                .attr('fill', '#ff6600');
+                .attr('fill', '#ff6600')
+                .each(function (d) {
+                    const scatter = d3.select(this);
+                    const x = xScale(d.country) as number + xScale.bandwidth() / 2;
+                    const y = yScale(d.sr) - 5; // Adjust the vertical position
+                    const value = d.sr.toString();
+
+                    // Add text for the bar value
+                    chart.append('text')
+                        .attr('x', x)
+                        .attr('y', y)
+                        .text(value)
+                        .attr("class", "scatter-text")
+                        .attr('text-anchor', 'middle')
+                        .style('fill', 'black')
+                        .style('font-size', '12px')
+                        .style('visibility', 'hidden'); // Initially hidden
+
+                    scatter.on('mouseover', function () {
+                        // Show the text on mouseover
+                        scatter.style("cursor", "pointer")
+                        chart.selectAll('.scatter-text').style('visibility', 'visible');
+                    });
+                    scatter.on('mouseout', () => {
+                        chart.selectAll('.scatter-text').style('visibility', 'hidden');
+                    });
+                });
 
             const legend = svg.append('g')
                 .attr('class', 'legend')
@@ -140,18 +179,6 @@ const BarPlot: React.FC<BarPlotProps> = ({ data }) => {
                 .attr('x', 190) // Adjust the horizontal position
                 .attr('y', 15);
 
-            // chart
-            //     .append('g')
-            //     .attr('transform', `translate(0,${height})`)
-            //     .call(d3.axisBottom(xScale))
-            //     .selectAll('text')
-            //     .style('text-anchor', 'end')
-            //     .attr('dx', '-.7em')
-            //     .attr('dy', '0.15em')
-            //     .attr('transform', 'rotate(-45)');
-
-
-            // chart.append('g').call(d3.axisLeft(yScale));
         }
     }, [data]);
 
@@ -160,4 +187,4 @@ const BarPlot: React.FC<BarPlotProps> = ({ data }) => {
     );
 };
 
-export default BarPlot;
+export default VscPlot;

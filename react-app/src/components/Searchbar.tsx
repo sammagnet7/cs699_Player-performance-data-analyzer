@@ -101,7 +101,6 @@ function Searchbar(setSearch: SearchProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("submitted");
     // check if empty form
     if (e.currentTarget.checkValidity() === false) {
       setValidated(true);

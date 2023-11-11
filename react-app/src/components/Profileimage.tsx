@@ -25,9 +25,9 @@ const Profileimage = (pl: overview) => {
                     </Card>
                 </div>
                 <div className="col col-md-10">
-                    {pl.careerAvgBat && pl.careerAvgBowl && <Allroundoverview player={pl.player} careerAvgBat={pl.careerAvgBat} careerAvgBowl={pl.careerAvgBowl} />};
-                    {pl.careerAvgBat && !pl.careerAvgBowl && <Batsmanoverview player={pl.player} careerAvg={pl.careerAvgBat} />};
-                    {pl.careerAvgBowl && !pl.careerAvgBat && <Bowleroverview player={pl.player} careerAvg={pl.careerAvgBowl} />};
+                    {pl.careerAvgBat && pl.careerAvgBowl && <Allroundoverview player={pl.player} careerAvgBat={pl.careerAvgBat} careerAvgBowl={pl.careerAvgBowl} />}
+                    {pl.careerAvgBat && !pl.careerAvgBowl && <Batsmanoverview player={pl.player} careerAvg={pl.careerAvgBat} />}
+                    {pl.careerAvgBowl && !pl.careerAvgBat && <Bowleroverview player={pl.player} careerAvg={pl.careerAvgBowl} />}
                 </div>
             </div>
         </>

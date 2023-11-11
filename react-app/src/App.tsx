@@ -5,8 +5,8 @@ import { Player } from './components/Searchbar'
 import { useState, createContext, useContext, useEffect } from 'react'
 import SearchPage from './components/SearchPage';
 import PlayerProfile from './components/PlayerProfile';
+import PieChart from './components/PieChart';
 import { ReactNode } from 'react';
-
 export interface PlayerContextType {
   player: Player | null;
   setPlayer: (player: Player) => void;
@@ -29,11 +29,20 @@ function App() {
     setPlayerPath(urlPath);
     navigate(urlPath);
   }
+  const data = [
+    { name: "Mark", value: 90 },
+    { name: "Robert", value: 12 },
+    { name: "Emily", value: 34 },
+    { name: "Marion", value: 53 },
+    { name: "Nicolas", value: 58 },
+  ]
+
   return (
     <Routes>
       <Route path='/' element={<SearchPage onDataReceived={showStats} />} />
       <Route path={playerPath} element={<PlayerProfile />} />
     </Routes>
+
   )
 }
 
