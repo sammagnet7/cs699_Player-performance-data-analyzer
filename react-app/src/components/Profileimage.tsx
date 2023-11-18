@@ -1,5 +1,4 @@
-import React from 'react'
-import { Card, Button } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { Player } from './Searchbar'
 import { CareerAverageBat, CareerAverageBow } from './PlayerProfile';
 import Bowleroverview from './Bowleroverview';

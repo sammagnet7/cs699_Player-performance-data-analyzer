@@ -1,20 +1,11 @@
-import React from 'react'
 import { Card } from 'react-bootstrap'
 import VscPlot from './VscPlot'
 import YoyPlot from './YoyPlot'
-import RadarChart, { HvAPlotProps } from './RadarChart'
+import RadarChart from './RadarChart'
 import PieChart from './PieChart'
-import { VscPlotProps } from './VscPlot'
-import { YoyPlotProps } from './YoyPlot'
-import { PieChartProps } from './PieChart'
-export interface ChartProps {
-    yoyPlotData: YoyPlotProps | undefined;
-    vscPlotData: VscPlotProps | undefined;
-    hvaPlotData: HvAPlotProps | undefined;
-    cenPlotData: PieChartProps | undefined;
-}
+import { ChartProps } from './BatsmanCharts'
 
-const BatsmanCharts: React.FC<ChartProps> = (plotdata) => {
+const BowlerCharts: React.FC<ChartProps> = (plotdata) => {
     return (
         <>
             <div className="row gx-2 gy-2" style={{ marginLeft: "5rem", marginRight: "5rem" }}>
@@ -47,7 +38,7 @@ const BatsmanCharts: React.FC<ChartProps> = (plotdata) => {
                 </div>
                 <div className='col col-md-6'>
                     <Card className='shadow p-3 bg-body-tertiary rounded'>
-                        <Card.Header>Batsman Innings Performance</Card.Header>
+                        <Card.Header>Wicket type distribution</Card.Header>
                         <Card.Body className='d-flex align-items-center justify-content-center'>
                             {plotdata.cenPlotData && <PieChart data={plotdata.cenPlotData.data} width={380} height={380} />}
                         </Card.Body>
@@ -58,4 +49,4 @@ const BatsmanCharts: React.FC<ChartProps> = (plotdata) => {
     )
 }
 
-export default BatsmanCharts
+export default BowlerCharts

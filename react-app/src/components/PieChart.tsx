@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import * as d3 from "d3";
 import styles from './PieChart.module.css'
 
@@ -14,7 +14,6 @@ export interface PieChartProps {
 
 const MARGIN_X = 50;
 const MARGIN_Y = 50;
-const INFLEXION_PADDING = 5; // space between donut and label inflexion point
 
 const colors = [
     "#e0ac2b",
@@ -91,11 +90,11 @@ export const PieChart = ({ width, height, data }: PieChartProps) => {
             <g className="legend" transform={`translate(${width / 4},0)`}>
                 <g className="legend-item">
                     <rect width={30} height={20} fill={colors[0]} x={-30}></rect>
-                    <text x={10} y={15}>100+</text>
+                    <text x={10} y={15}>{data[0].name}</text>
                     <rect width={30} height={20} fill={colors[1]} x={80}></rect>
-                    <text x={120} y={15}>50-99</text>
+                    <text x={120} y={15}>{data[1].name}</text>
                     <rect width={30} height={20} fill={colors[2]} x={180}></rect>
-                    <text x={220} y={15}>&lt;50</text>
+                    <text x={220} y={15}>{data[2].name}</text>
                 </g>
             </g>
         </svg>

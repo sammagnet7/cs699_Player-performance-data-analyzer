@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Player } from './Searchbar'
 import { useContext } from 'react';
+import { Button, Collapse } from 'react-bootstrap';
 import { PlayerContext } from '../App';
-import { BatsmanChartProps } from './BatsmanCharts';
-import { VscPlotProps } from './VscPlot';
-import { PieChartProps } from './PieChart';
+import { ChartProps } from './BatsmanCharts';
 import Profileimage from './Profileimage';
 import Header from './Header';
 import BatsmanCharts from './BatsmanCharts';
+import BowlerCharts from './BowlerCharts';
 import './PlayerProfile.css'
 import { YoyPlotProps } from './YoyPlot';
+import { VscPlotProps } from './VscPlot';
+import { PieChartProps } from './PieChart';
 import { HvAPlotProps } from './RadarChart';
 import { Layer } from './RadarChart';
 const API_URL_CAVG_BAT = 'http://localhost:8080/batsman/careeravg/';
@@ -33,187 +35,249 @@ async function fetchFromAPI(url: string, pId: number | undefined) {
         throw new Error('Failed to fetch suggestions from the API');
     }
 }
-export interface CareerAverageBat {
+interface GeneralPlayerData {
     pId: number,
-    span: string,
     inns: string,
     runs: string,
-    hs: string,
     ave: string,
-    sr: string,
+    sr: string
+}
+interface GeneralBatsmanData extends GeneralPlayerData {
+    hs: string
+}
+export interface CareerAverageBat extends GeneralBatsmanData {
+    span: string,
     _100s: string,
     _50s: string,
     _0s: string,
     _4s: string,
     _6s: string
 }
-export interface CareerAverageBow {
-    pId: number,
-    span: string,
-    inns: string,
+interface YearlyStats_Batsman extends GeneralBatsmanData {
+    year: string,
+}
+
+interface VsCountry_Batsman extends GeneralBatsmanData {
+    country: string,
+}
+
+interface HomeVsAway_Batsman extends GeneralBatsmanData {
+    venue: string, // home away neutral
+}
+
+interface GeneralBowlerData extends GeneralPlayerData {
     overs: string,
     mdns: string,
-    runs: string,
     wkts: string,
-    ave: string,
     econ: string,
-    sr: string,
+}
+export interface CareerAverageBow extends GeneralBowlerData {
+    span: string,
     caught: string,
     bowled: string,
     lbw: string
 }
-interface YearlyStats {
-    pId: number,
-    year: string,
-    inns: string,
-    runs: string,
-    hs: string,
-    ave: string,
-    sr: string
-}
 
-interface VsCountry {
-    pId: number,
+interface HomeVsAway_Bowler extends GeneralBowlerData {
+    venue: string,
+}
+interface VsCountry_Bowler extends GeneralBowlerData {
     country: string,
-    inns: string,
-    runs: string,
-    hs: string,
-    ave: string,
-    sr: string
 }
 
-interface HomeVsAway {
-    pId: number,
-    venue: string, // home away neutral
-    inns: string,
-    runs: string,
-    hs: string,
-    ave: string,
-    sr: string
+interface YearlyStats_Bowler extends GeneralBowlerData {
+    year: string,
 }
-const initialBatsmanPlotData: BatsmanChartProps = { yoyPlotData: undefined, vscPlotData: undefined, hvaPlotData: undefined, cenPlotData: undefined };
-const initialVscPlotData: VscPlotProps = { data: [] };
-const initialYoyPlotData: YoyPlotProps = { data: [] };
-const initialHvAPlotData: HvAPlotProps = { data: [[], []] };
-const initialCenPlotData: PieChartProps = { data: [], width: 0, height: 0 };
 const PlayerProfile = () => {
-    const [batsmanChartDat, setBatsmanChartDat] = useState<BatsmanChartProps>(initialBatsmanPlotData);
-    const [vscChartDat, setVscChartDat] = useState<VscPlotProps>(initialVscPlotData);
-    const [yoyChartDat, setYoyChartDat] = useState<YoyPlotProps>(initialYoyPlotData);
-    const [hvAChartDat, setHvAChartDat] = useState<HvAPlotProps>(initialHvAPlotData);
-    const [cenChartDat, setCenChartDat] = useState<PieChartProps>(initialCenPlotData);
-
     const context = useContext(PlayerContext);
     const [careerAvgBat, setCareerAvgBat] = useState<CareerAverageBat>();
     const [careerAvgBow, setCareerAvgBow] = useState<CareerAverageBow>();
+
+    const [yoyBat, setYoyBat] = useState<YoyPlotProps>();
+    const [vscBat, setVscBat] = useState<VscPlotProps>();
+    const [hvaBat, setHvaBat] = useState<HvAPlotProps>();
+    const [pieBat, setPieBat] = useState<PieChartProps>();
+
+    const [yoyBowl, setYoyBowl] = useState<YoyPlotProps>();
+    const [vscBowl, setVscBowl] = useState<VscPlotProps>();
+    const [hvaBowl, setHvaBowl] = useState<HvAPlotProps>();
+    const [pieBowl, setPieBowl] = useState<PieChartProps>();
+    const [open, setOpen] = useState(false)
+    const fetchBatsmanData = () => {
+        const cavgPromise = fetchFromAPI(API_URL_CAVG_BAT, context?.player?.pId);
+        const yoyPromise = fetchFromAPI(API_URL_YS_BAT, context?.player?.pId);
+        const vscPromise = fetchFromAPI(API_URL_VSC_BAT, context?.player?.pId);
+        const hvaPromise = fetchFromAPI(API_URL_HVA_BAT, context?.player?.pId);
+        let piePlotData: PieChartProps | undefined;
+        let yoyPlotData: YoyPlotProps | undefined;
+        let vscPlotData: VscPlotProps | undefined;
+        let hvaPlotData: HvAPlotProps | undefined;
+
+        cavgPromise.then((apiData) => {
+            piePlotData = {
+                data: [
+                    { name: "100+", value: parseInt(apiData[0]._100s, 10) },
+                    { name: "50-99", value: parseInt(apiData[0]._50s, 10) },
+                    {
+                        name: "<50",
+                        value: parseInt(apiData[0].inns, 10) - (parseInt(apiData[0]._100s, 10) + parseInt(apiData[0]._50s, 10)),
+                    }
+                ],
+                width: 300,
+                height: 300
+            };
+            setPieBat(piePlotData);
+            setCareerAvgBat(apiData[0]);
+        }).catch((error) => {
+            console.error(error);
+        });
+        yoyPromise.then((apiData) => {
+            yoyPlotData = {
+                data: apiData.map((dat: YearlyStats_Batsman) => ({
+                    year: dat.year.substring(5),
+                    initial: 0,
+                    innings: parseInt(dat.inns, 10),
+                    ave: parseInt(dat.ave, 10),
+                    sr: parseFloat(dat.sr),
+                }))
+            };
+            setYoyBat(yoyPlotData);
+        }).catch((error) => {
+            console.error(error);
+        });
+        vscPromise.then((apiData) => {
+            vscPlotData = {
+                data: apiData.map((dat: VsCountry_Batsman) => ({
+                    country: dat.country,
+                    initial: 0,
+                    innings: parseInt(dat.inns, 10),
+                    sr: parseFloat(dat.sr),
+                }))
+            };
+            setVscBat(vscPlotData);
+        }).catch((error) => {
+            console.error(error);
+        });
+
+        hvaPromise.then((apiData) => {
+            hvaPlotData = {
+                data: apiData.reduce((result: Array<Array<Layer>>, item: HomeVsAway_Batsman) => {
+                    const layer_p1: Layer = { layer: item.venue, parameter: "Runs", value: Number(item.runs) };
+                    result.push([layer_p1]);
+                    const venueIndex = result.findIndex(venueData => venueData[0]?.layer === item.venue);
+                    const layer_p2: Layer = { layer: item.venue, parameter: "Innings", value: Number(item.inns) };
+                    const layer_p3: Layer = { layer: item.venue, parameter: "Strike Rate", value: Number(item.sr) };
+                    const layer_p4: Layer = { layer: item.venue, parameter: "Average", value: Number(item.ave) };
+                    const layer_p5: Layer = { layer: item.venue, parameter: "High Score", value: Number(item.hs.replace(/\D/g, '')) };
+                    result[venueIndex].push(layer_p2);
+                    result[venueIndex].push(layer_p3);
+                    result[venueIndex].push(layer_p4);
+                    result[venueIndex].push(layer_p5);
+                    return result;
+                }, [])
+            };
+            setHvaBat(hvaPlotData);
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
+
+    const fetchBowlerData = () => {
+        const cavgPromise = fetchFromAPI(API_URL_CAVG_BOW, context?.player?.pId);
+        const yoyPromise = fetchFromAPI(API_URL_YS_BOW, context?.player?.pId);
+        const vscPromise = fetchFromAPI(API_URL_VSC_BOW, context?.player?.pId);
+        const hvaPromise = fetchFromAPI(API_URL_HVA_BOW, context?.player?.pId);
+        let piePlotData: PieChartProps | undefined;
+        let yoyPlotData: YoyPlotProps | undefined;
+        let vscPlotData: VscPlotProps | undefined;
+        let hvaPlotData: HvAPlotProps | undefined;
+
+        cavgPromise.then((apiData) => {
+            piePlotData = {
+                data: [
+                    { name: "Caught", value: parseInt(apiData[0].caught, 10) },
+                    { name: "bowled", value: parseInt(apiData[0].bowled, 10) },
+                    { name: "lbw", value: parseInt(apiData[0].lbw, 10) }
+                ],
+                width: 300,
+                height: 300
+            };
+            setPieBowl(piePlotData);
+            setCareerAvgBow(apiData[0]);
+        }).catch((error) => {
+            console.error(error);
+        });
+        yoyPromise.then((apiData) => {
+            yoyPlotData = {
+                data: apiData.map((dat: YearlyStats_Bowler) => ({
+                    year: dat.year.substring(5),
+                    initial: 0,
+                    innings: parseInt(dat.inns, 10),
+                    ave: parseInt(dat.ave, 10),
+                    sr: parseFloat(dat.sr),
+                }))
+            };
+            setYoyBowl(yoyPlotData);
+        }).catch((error) => {
+            console.error(error);
+        });
+        vscPromise.then((apiData) => {
+            vscPlotData = {
+                data: apiData.map((dat: VsCountry_Bowler) => ({
+                    country: dat.country,
+                    initial: 0,
+                    innings: parseInt(dat.inns, 10),
+                    sr: parseFloat(dat.sr),
+                }))
+            };
+            setVscBowl(vscPlotData);
+        }).catch((error) => {
+            console.error(error);
+        });
+
+        hvaPromise.then((apiData) => {
+            hvaPlotData = {
+                data: apiData.reduce((result: Array<Array<Layer>>, item: HomeVsAway_Bowler) => {
+                    const layer_p1: Layer = { layer: item.venue, parameter: "Innings", value: Number(item.inns) };
+                    result.push([layer_p1]);
+                    const venueIndex = result.findIndex(venueData => venueData[0]?.layer === item.venue);
+                    const layer_p2: Layer = { layer: item.venue, parameter: "Maidens", value: Number(item.mdns) };
+                    const layer_p3: Layer = { layer: item.venue, parameter: "Wickets", value: Number(item.wkts) };
+                    const layer_p4: Layer = { layer: item.venue, parameter: "Average", value: Number(item.ave) };
+                    const layer_p5: Layer = { layer: item.venue, parameter: "Economy", value: Number(item.econ) };
+                    result[venueIndex].push(layer_p2);
+                    result[venueIndex].push(layer_p3);
+                    result[venueIndex].push(layer_p4);
+                    result[venueIndex].push(layer_p5);
+                    return result;
+                }, [])
+            };
+            setHvaBowl(hvaPlotData);
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
+
     // fetch all stats for this player
     useEffect(() => {
-        console.log(context?.player?.fullName);
         if (context?.player?.roll_id === "BAT") {
-            const cavgPromise = fetchFromAPI(API_URL_CAVG_BAT, context?.player?.pId);
-            const yoyPromise = fetchFromAPI(API_URL_YS_BAT, context?.player?.pId);
-            const vscPromise = fetchFromAPI(API_URL_VSC_BAT, context?.player?.pId);
-            const hvaPromise = fetchFromAPI(API_URL_HVA_BAT, context?.player?.pId);
-            cavgPromise.then((apiData) => {
-                const piePlotData: PieChartProps = {
-                    data: [
-                        { name: "100+", value: parseInt(apiData[0]._100s, 10) },
-                        { name: "50-99", value: parseInt(apiData[0]._50s, 10) },
-                        {
-                            name: "<50",
-                            value: parseInt(apiData[0].inns, 10) - (parseInt(apiData[0]._100s, 10) + parseInt(apiData[0]._50s, 10)),
-                        }
-                    ],
-                    width: 300,
-                    height: 300
-                };
-                setCenChartDat(piePlotData);
-                setCareerAvgBat(apiData[0]);
-            }).catch((error) => {
-                console.error(error);
-            });
-            yoyPromise.then((apiData) => {
-                const barPlotData: YoyPlotProps = {
-                    data: apiData.map((dat: YearlyStats) => ({
-                        year: dat.year.substring(5),
-                        initial: 0,
-                        innings: parseInt(dat.inns, 10),
-                        ave: parseInt(dat.ave, 10),
-                        sr: parseFloat(dat.sr),
-                    }))
-                };
-                setYoyChartDat(barPlotData);
-            }).catch((error) => {
-                console.error(error);
-            });
-            vscPromise.then((apiData) => {
-                const barPlotData: VscPlotProps = {
-                    data: apiData.map((dat: VsCountry) => ({
-                        country: dat.country,
-                        initial: 0,
-                        innings: parseInt(dat.inns, 10),
-                        sr: parseFloat(dat.sr),
-                    }))
-                };
-                setVscChartDat(barPlotData);
-            }).catch((error) => {
-                console.error(error);
-            });
-
-            hvaPromise.then((apiData) => {
-                const radarPlotData: HvAPlotProps = {
-                    data: apiData.reduce((result: Array<Array<Layer>>, item: HomeVsAway) => {
-                        const layer_p1: Layer = { layer: item.venue, parameter: "Runs", value: Number(item.runs) };
-                        result.push([layer_p1]);
-                        const venueIndex = result.findIndex(venueData => venueData[0]?.layer === item.venue);
-                        const layer_p2: Layer = { layer: item.venue, parameter: "Innings", value: Number(item.inns) };
-                        const layer_p3: Layer = { layer: item.venue, parameter: "Strike Rate", value: Number(item.sr) };
-                        const layer_p4: Layer = { layer: item.venue, parameter: "Average", value: Number(item.ave) };
-                        const layer_p5: Layer = { layer: item.venue, parameter: "High Score", value: Number(item.hs.replace(/\D/g, '')) };
-                        result[venueIndex].push(layer_p2);
-                        result[venueIndex].push(layer_p3);
-                        result[venueIndex].push(layer_p4);
-                        result[venueIndex].push(layer_p5);
-                        return result;
-                    }, [])
-                };
-                setHvAChartDat(radarPlotData);
-            }).catch((error) => {
-                console.error(error);
-            });
-            setBatsmanChartDat({ yoyPlotData: yoyChartDat, vscPlotData: vscChartDat, hvaPlotData: hvAChartDat, cenPlotData: cenChartDat });
+            fetchBatsmanData();
         }
         else if (context?.player?.roll_id === "BOW") {
-            fetchFromAPI(API_URL_CAVG_BOW, context?.player?.pId)
-                .then((apiData) => {
-                    setCareerAvgBow(apiData[0]);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-
+            fetchBowlerData();
         }
         else if (context?.player?.roll_id === "ALL") {
-            const batsmanPromise = fetchFromAPI(API_URL_CAVG_BAT, context?.player?.pId);
-            const bowlerPromise = fetchFromAPI(API_URL_CAVG_BOW, context?.player?.pId);
-            batsmanPromise.then((apiData) => {
-                setCareerAvgBat(apiData[0]);
-            }).catch((error) => {
-                console.error(error);
-            });
-
-            bowlerPromise.then((apiData) => {
-                setCareerAvgBow(apiData[0]);
-            }).catch((error) => {
-                console.error(error);
-            });
+            fetchBatsmanData();
+            fetchBowlerData();
         }
     }, [])
     return (
         <>
             <Header title={context?.player?.fullName as string} />
             <Profileimage player={context?.player as Player} careerAvgBat={careerAvgBat as CareerAverageBat} careerAvgBowl={careerAvgBow as CareerAverageBow} />
-            <BatsmanCharts vscPlotData={vscChartDat} yoyPlotData={yoyChartDat} hvaPlotData={hvAChartDat} cenPlotData={cenChartDat} />
+
+            {vscBat && <BatsmanCharts vscPlotData={vscBat} yoyPlotData={yoyBat} hvaPlotData={hvaBat} cenPlotData={pieBat} />}
+            {vscBowl && <BowlerCharts vscPlotData={vscBowl} yoyPlotData={yoyBowl} hvaPlotData={hvaBowl} cenPlotData={pieBowl} />}
         </>
     )
 }
