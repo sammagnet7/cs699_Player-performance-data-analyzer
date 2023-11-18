@@ -21,7 +21,7 @@ export interface Player {
 }
 
 const API_URL = 'http://localhost:8080/overview/all';
-const CACHE_KEY = 'predefinedSuggestions';
+export const CACHE_KEY = 'predefinedSuggestions';
 
 async function fetchSuggestionsFromAPI() {
   try {
@@ -36,7 +36,7 @@ async function fetchSuggestionsFromAPI() {
   }
 }
 
-function getFromLocalStorage(key: string): string | null {
+export function getFromLocalStorage(key: string): string | null {
   // saveToLocalStorage(CACHE_KEY, JSON.stringify(data));
   return localStorage.getItem(key);
 }

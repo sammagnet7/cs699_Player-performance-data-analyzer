@@ -5,6 +5,7 @@ import { Player } from './components/Searchbar'
 import { useState, createContext, useContext } from 'react'
 import SearchPage from './components/SearchPage';
 import PlayerProfile from './components/PlayerProfile';
+import ComparePlayers from './components/ComparePlayers';
 import { ReactNode } from 'react';
 export interface PlayerContextType {
   player: Player | null;
@@ -33,6 +34,7 @@ function App() {
     <Routes>
       <Route path='/' element={<SearchPage onDataReceived={showStats} />} />
       <Route path={playerPath} element={<PlayerProfile />} />
+      <Route path='/compare' element={<ComparePlayers />} />
     </Routes>
 
   )

@@ -12,8 +12,8 @@ import { VscPlotProps } from './VscPlot';
 import { PieChartProps } from './PieChart';
 import { HvAPlotProps } from './RadarChart';
 import { Layer } from './RadarChart';
-const API_URL_CAVG_BAT = 'http://localhost:8080/batsman/careeravg/';
-const API_URL_CAVG_BOW = 'http://localhost:8080/bowler/careeravg/';
+export const API_URL_CAVG_BAT = 'http://localhost:8080/batsman/careeravg/';
+export const API_URL_CAVG_BOW = 'http://localhost:8080/bowler/careeravg/';
 const API_URL_VSC_BAT = 'http://localhost:8080/batsman/vscountry/';
 const API_URL_VSC_BOW = 'http://localhost:8080/bowler/vscountry/';
 const API_URL_HVA_BAT = 'http://localhost:8080/batsman/homevsaway/';
@@ -21,7 +21,7 @@ const API_URL_HVA_BOW = 'http://localhost:8080/bowler/homevsaway/';
 const API_URL_YS_BAT = 'http://localhost:8080/batsman/yearlystats/';
 const API_URL_YS_BOW = 'http://localhost:8080/bowler/yearlystats/';
 
-async function fetchFromAPI(url: string, pId: number | undefined) {
+export async function fetchFromAPI(url: string, pId: number | undefined) {
     try {
         const response = await fetch(url + pId);
         if (!response.ok) {
