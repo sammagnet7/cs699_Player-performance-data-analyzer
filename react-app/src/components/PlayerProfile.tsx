@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Player } from './Searchbar'
 import { useContext } from 'react';
-import { Button, Collapse } from 'react-bootstrap';
 import { PlayerContext } from '../App';
-import { ChartProps } from './BatsmanCharts';
 import Profileimage from './Profileimage';
 import Header from './Header';
 import BatsmanCharts from './BatsmanCharts';
@@ -275,8 +273,9 @@ const PlayerProfile = () => {
         <>
             <Header title={context?.player?.fullName as string} />
             <Profileimage player={context?.player as Player} careerAvgBat={careerAvgBat as CareerAverageBat} careerAvgBowl={careerAvgBow as CareerAverageBow} />
-
+            {vscBat && vscBowl && <Header title='Batting Figures' />}
             {vscBat && <BatsmanCharts vscPlotData={vscBat} yoyPlotData={yoyBat} hvaPlotData={hvaBat} cenPlotData={pieBat} />}
+            {vscBat && vscBowl && <Header title='Bowling Figures' />}
             {vscBowl && <BowlerCharts vscPlotData={vscBowl} yoyPlotData={yoyBowl} hvaPlotData={hvaBowl} cenPlotData={pieBowl} />}
         </>
     )
