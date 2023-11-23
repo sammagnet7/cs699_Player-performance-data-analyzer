@@ -7,6 +7,9 @@ import Allroundoverview from './Allroundoverview';
 import { getFromLocalStorage } from './Searchbar';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { renderToString } from 'react-dom/server';
+import PlayerProfile from './PlayerProfile';
+
 export interface overview {
     player: Player;
     careerAvgBat: CareerAverageBat | null;
@@ -43,6 +46,9 @@ const Profileimage = (pl: overview) => {
             }
         })
     }
+    const pdfHandler = () => {
+        window.print();
+    }
     return (
         <>
             <div className="row gx-2" style={{ marginLeft: "5rem", marginTop: "2rem", marginRight: "5rem" }}>
@@ -67,7 +73,7 @@ const Profileimage = (pl: overview) => {
                                 )))}
                             </DropdownButton>
                         </div>
-                        <div className="col col-sm-2"><Button variant="primary">Download</Button>{' '}</div>
+                        <div className="col col-sm-2"><Button onClick={pdfHandler} variant="primary">Download</Button>{' '}</div>
                     </div>
                 </div>
 
