@@ -8,10 +8,10 @@ export interface YoyPlotProps {
 
 const YoyPlot: React.FC<YoyPlotProps> = ({ data }) => {
     const svgRef = useRef<SVGSVGElement | null>(null);
-    const margin = { top: 20, right: 30, bottom: 40, left: 40 };
-    const width = 800 - margin.left - margin.right;
+    const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+    const width = 650 - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
-    const legendX = width - 300;
+    const legendX = width / 4;
     const legendY = 2;
     const lineColor = "#ff6600";
     const bar2Color = "#1F75FE";

@@ -4,7 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import React, { useEffect, useState, useContext } from 'react'
 import './Searchbar.css'
 import { PlayerContext, PlayerContextType } from '../App';
-
+import UploadModal from './UploadModal';
 export interface SearchProps {
   onDataReceived: () => void;
 }
@@ -52,6 +52,7 @@ function Searchbar(setSearch: SearchProps) {
   const [predefinedSuggestions, setPredefinedSuggestions] = useState<Player[]>([]);
   const [validated, setValidated] = useState(false);
   const [valid, setValid] = useState(true);
+  const [modalShow, setModalShow] = useState(false);
   const context = useContext(PlayerContext);
 
   useEffect(() => {
@@ -125,6 +126,17 @@ function Searchbar(setSearch: SearchProps) {
       setSearch.onDataReceived();
     }
   };
+  const downloadData = async () => {
+    // try {
+    //   const response = await fetch('your-api-endpoint');
+    //   const blob = await response.blob();
+
+    //   // Use file-saver to trigger the download
+    //   saveAs(blob, 'your-file-name.zip');
+    // } catch (error) {
+    //   console.error('Error downloading zip file:', error);
+    // }
+  }
   return (
     <>
       <h1 id='hero-text' className="display-4 fw-medium text-center mb-3">Player Performance <br />
@@ -141,6 +153,13 @@ function Searchbar(setSearch: SearchProps) {
           <Button variant="primary" id="searchBtn" type="submit">
             Search
           </Button>
+          <Button variant="outline-success" id="dwnldBtn" onClick={downloadData}>
+            Download
+          </Button>
+          <Button variant="outline-warning" id="upldBtn" onClick={() => setModalShow(true)}>
+            Upload
+          </Button>
+          <UploadModal show={modalShow} onHide={() => setModalShow(false)} />
           <Form.Control.Feedback type="invalid" className='fs-5 fw-bold'>
             Please enter a valid player name.
           </Form.Control.Feedback>

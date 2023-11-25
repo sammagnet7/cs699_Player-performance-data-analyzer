@@ -8,7 +8,7 @@ import { ChartProps } from './BatsmanCharts'
 const BowlerCharts: React.FC<ChartProps> = (plotdata) => {
     return (
         <>
-            <div className="row gx-2 gy-2" style={{ marginLeft: "5rem", marginRight: "5rem" }}>
+            <div className="row gx-2" id='barplot-container'>
                 <div className='col col-md-6'>
                     <Card className='shadow p-3 bg-body-tertiary rounded'>
                         <Card.Header>Year on Year Performance</Card.Header>
@@ -27,7 +27,7 @@ const BowlerCharts: React.FC<ChartProps> = (plotdata) => {
                     </Card>
                 </div>
             </div>
-            <div className="row gx-2 gy-2" style={{ marginLeft: "5rem", marginRight: "5rem" }}>
+            <div className="row gx-2" id='radialplot-container'>
                 <div className='col col-md-6'>
                     <Card className='shadow p-3 bg-body-tertiary rounded'>
                         <Card.Header>Home vs Away vs Neutral</Card.Header>

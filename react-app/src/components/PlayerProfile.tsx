@@ -12,6 +12,7 @@ import { VscPlotProps } from './VscPlot';
 import { PieChartProps } from './PieChart';
 import { HvAPlotProps } from './RadarChart';
 import { Layer } from './RadarChart';
+import './Charts.css'
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 export const API_URL_CAVG_BAT = 'http://localhost:8080/batsman/careeravg/';
