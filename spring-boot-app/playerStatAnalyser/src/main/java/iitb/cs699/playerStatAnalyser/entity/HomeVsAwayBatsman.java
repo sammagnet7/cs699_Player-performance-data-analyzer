@@ -9,16 +9,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+/**
+ * Entity class for HomeVsAwayBatsman, representing records in the 'home_vs_away_batsman' table.
+ */
 @Data
 @Entity
 @Table(name="home_vs_away_batsman")
 public class HomeVsAwayBatsman {
 	
 	
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name ="row_id")
-	private int row_id;	
+	private int rowId;	
 	
 	@Column(name ="p_id")
 	public int pId;

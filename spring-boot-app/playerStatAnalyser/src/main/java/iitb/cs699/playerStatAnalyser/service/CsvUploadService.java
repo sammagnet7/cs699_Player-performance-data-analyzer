@@ -1,21 +1,23 @@
+/**
+ * Service class for handling CSV file upload operations.
+ */
 package iitb.cs699.playerStatAnalyser.service;
 
-import java.io.BufferedReader;
+/**
+ * Import necessary classes for the service.
+ */
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import iitb.cs699.playerStatAnalyser.entity.CareerAvgBatsman;
 import iitb.cs699.playerStatAnalyser.entity.CareerAvgBowler;
 import iitb.cs699.playerStatAnalyser.entity.HomeVsAwayBatsman;
@@ -36,44 +38,79 @@ import iitb.cs699.playerStatAnalyser.repo.YearlyStatsBatsmanRepository;
 import iitb.cs699.playerStatAnalyser.repo.YearlyStatsBowlerRepository;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Service class for handling CSV file upload operations for player statistics.
+ */
 @Slf4j
 @Service
 public class CsvUploadService {
 
+	/**
+	 * Autowired repository for CareerAvgBatsman data.
+	 */
 	@Autowired
 	private CareerAvgBatsmanRepository careerAvgBatsmanRepo;
 
+	/**
+	 * Autowired repository for HomeVsAwayBatsman data.
+	 */
 	@Autowired
 	private HomeVsAwayBatsmanRepository homeVsAwayBatsmanRepo;
 
+	/**
+	 * Autowired repository for VsCountryBatsman data.
+	 */
 	@Autowired
 	private VsCountryBatsmanRepository vsCountryBatsmanRepo;
 
+	/**
+	 * Autowired repository for YearlyStatsBatsman data.
+	 */
 	@Autowired
 	private YearlyStatsBatsmanRepository yearlyStatsBatsmanRepo;
 
+	/**
+	 * Autowired repository for CareerAvgBowler data.
+	 */
 	@Autowired
 	private CareerAvgBowlerRepository careerAvgBowlerRepo;
 
+	/**
+	 * Autowired repository for HomeVsAwayBowler data.
+	 */
 	@Autowired
 	private HomeVsAwayBowlerRepository homeVsAwayBowlerRepo;
 
+	/**
+	 * Autowired repository for VsCountryBowler data.
+	 */
 	@Autowired
 	private VsCountryBowlerRepository vsCountryBowlerRepo;
 
+	/**
+	 * Autowired repository for YearlyStatsBowler data.
+	 */
 	@Autowired
 	private YearlyStatsBowlerRepository yearlyStatsBowlerRepo;
 
+	/**
+	 * Autowired repository for PlayerOverview data.
+	 */
 	@Autowired
 	private PlayerOverviewRepository playerOverviewRepo;
-	
 
+	/**
+	 * Method to upload a ZIP file containing CSV files and process each CSV file.
+	 *
+	 * @param zipFile The ZIP file containing CSV files.
+	 * @throws IOException If an I/O error occurs.
+	 */
 	public void uploadCsvFiles(MultipartFile zipFile) throws IOException {
 
 		try (ZipInputStream zipInputStream = new ZipInputStream(zipFile.getInputStream())) {
 
 			ZipEntry entry;
-			
+
 			while ((entry = zipInputStream.getNextEntry()) != null) {
 
 				String originalFilename = entry.getName();
@@ -81,30 +118,34 @@ public class CsvUploadService {
 					continue;
 				}
 				String tableName = getTableName(originalFilename);
-				
-				
-				// Read the CSV content into a byte array
-	            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-	            byte[] buffer = new byte[1024];
-	            int len;
-	            while ((len = zipInputStream.read(buffer)) > 0) {
-	                byteArrayOutputStream.write(buffer, 0, len);
-	            }
 
-	            // Create a new ByteArrayInputStream for each CSV entry
-	            try (InputStream csvInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray())) {
-	                processIndividualCsvFile(csvInputStream, tableName);
-	            }
-				
+				// Read the CSV content into a byte array
+				ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[1024];
+				int len;
+				while ((len = zipInputStream.read(buffer)) > 0) {
+					byteArrayOutputStream.write(buffer, 0, len);
+				}
+
+				// Create a new ByteArrayInputStream for each CSV entry
+				try (InputStream csvInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray())) {
+					processIndividualCsvFile(csvInputStream, tableName);
+				}
+
 			}
 		}
 	}
 
+	/**
+	 * Method to process an individual CSV file based on its table name.
+	 *
+	 * @param csvInputStream The input stream for the CSV file.
+	 * @param tableName      The name of the table for the CSV file.
+	 * @throws IOException If an I/O error occurs.
+	 */
 	public void processIndividualCsvFile(InputStream csvInputStream, String tableName) throws IOException {
 
-
-	    
-	    try (CSVParser csvParser = CSVParser.parse(new InputStreamReader(csvInputStream),
+		try (CSVParser csvParser = CSVParser.parse(new InputStreamReader(csvInputStream),
 				CSVFormat.DEFAULT.withHeader())) {
 
 			if (csvParser.iterator().hasNext()) {
@@ -144,25 +185,33 @@ public class CsvUploadService {
 			} else {
 				// Handle empty file
 				log.debug("Empty file: " + tableName);
-				}
-	    }
-
+			}
+		}
 
 	}
 
+	/**
+	 * Method to extract the table name from the file name.
+	 *
+	 * @param fileName The name of the CSV file.
+	 * @return The table name.
+	 */
 	private String getTableName(String fileName) {
-		
-		// Logic to extract table name from the file name, assuming a naming convention
 		return fileName.split(".csv")[0].toLowerCase();
 	}
 
+	/**
+	 * Method to process CSV data and save it to the PlayerOverview repository.
+	 *
+	 * @param csvParser The CSVParser containing the data.
+	 */
 	private void processPlayerOverview(CSVParser csvParser) {
-		
+
 		playerOverviewRepo.deleteAll();
-		
+
 		csvParser.forEach(record -> {
 			PlayerOverview playerOverview = new PlayerOverview();
-			playerOverview.setRow_id(Integer.parseInt(record.get("row_id")));
+			playerOverview.setRowId( Integer.parseInt(record.get("row_id")) );
 			playerOverview.setPId(Integer.parseInt(record.get("p_id")));
 			playerOverview.setFullName(record.get("full_name"));
 			playerOverview.setBorn(record.get("born"));
@@ -177,12 +226,17 @@ public class CsvUploadService {
 		});
 	}
 
+	/**
+	 * Method to process CSV data and save it to the CareerAvgBatsman repository.
+	 *
+	 * @param csvParser The CSVParser containing the data.
+	 */
 	private void processCareerAvgBatsman(CSVParser csvParser) {
 
 		careerAvgBatsmanRepo.deleteAll();
 		csvParser.forEach(record -> {
 			CareerAvgBatsman careerAvgBatsman = new CareerAvgBatsman();
-			careerAvgBatsman.setRow_id(Integer.parseInt(record.get("row_id")));
+			careerAvgBatsman.setRowId( Integer.parseInt(record.get("row_id")) );
 			careerAvgBatsman.setPId(Integer.parseInt(record.get("p_id")));
 			careerAvgBatsman.setSpan(record.get("span"));
 			careerAvgBatsman.setInns(record.get("inns"));
@@ -200,12 +254,17 @@ public class CsvUploadService {
 		});
 	}
 
+	/**
+	 * Method to process CSV data and save it to the VsCountryBatsman repository.
+	 *
+	 * @param csvParser The CSVParser containing the data.
+	 */
 	private void processVsCountryBatsman(CSVParser csvParser) {
-		
+
 		vsCountryBatsmanRepo.deleteAll();
 		csvParser.forEach(record -> {
 			VsCountryBatsman vsCountryBatsman = new VsCountryBatsman();
-			vsCountryBatsman.setRow_id(Integer.parseInt(record.get("row_id")));
+			vsCountryBatsman.setRowId( Integer.parseInt(record.get("row_id")) );
 			vsCountryBatsman.setPId(Integer.parseInt(record.get("p_id")));
 			vsCountryBatsman.setCountry(record.get("country"));
 			vsCountryBatsman.setInns(record.get("inns"));
@@ -218,12 +277,17 @@ public class CsvUploadService {
 		});
 	}
 
+	/**
+	 * Method to process CSV data and save it to the HomeVsAwayBatsman repository.
+	 *
+	 * @param csvParser The CSVParser containing the data.
+	 */
 	private void processHomeVsAwayBatsman(CSVParser csvParser) {
-		
+
 		homeVsAwayBatsmanRepo.deleteAll();
 		csvParser.forEach(record -> {
 			HomeVsAwayBatsman homeVsAwayBatsman = new HomeVsAwayBatsman();
-			homeVsAwayBatsman.setRow_id(Integer.parseInt(record.get("row_id")));
+			homeVsAwayBatsman.setRowId( Integer.parseInt(record.get("row_id")) );
 			homeVsAwayBatsman.setPId(Integer.parseInt(record.get("p_id")));
 			homeVsAwayBatsman.setVenue(record.get("venue"));
 			homeVsAwayBatsman.setInns(record.get("inns"));
@@ -236,12 +300,17 @@ public class CsvUploadService {
 		});
 	}
 
+	/**
+	 * Method to process CSV data and save it to the YearlyStatsBatsman repository.
+	 *
+	 * @param csvParser The CSVParser containing the data.
+	 */
 	private void processYearlyStatsBatsman(CSVParser csvParser) {
-		
+
 		yearlyStatsBatsmanRepo.deleteAll();
 		csvParser.forEach(record -> {
 			YearlyStatsBatsman yearlyStatsBatsman = new YearlyStatsBatsman();
-			yearlyStatsBatsman.setRow_id(Integer.parseInt(record.get("row_id")));
+			yearlyStatsBatsman.setRowId( Integer.parseInt(record.get("row_id")) );
 			yearlyStatsBatsman.setPId(Integer.parseInt(record.get("p_id")));
 			yearlyStatsBatsman.setYear(record.get("year"));
 			yearlyStatsBatsman.setInns(record.get("inns"));
@@ -254,12 +323,17 @@ public class CsvUploadService {
 		});
 	}
 
+	/**
+	 * Method to process CSV data and save it to the CareerAvgBowler repository.
+	 *
+	 * @param csvParser The CSVParser containing the data.
+	 */
 	private void processCareerAvgBowler(CSVParser csvParser) {
-		
+
 		careerAvgBowlerRepo.deleteAll();
 		csvParser.forEach(record -> {
 			CareerAvgBowler careerAvgBowler = new CareerAvgBowler();
-			careerAvgBowler.setRow_id(Integer.parseInt(record.get("row_id")));
+			careerAvgBowler.setRowId( Integer.parseInt(record.get("row_id")) );
 			careerAvgBowler.setPId(Integer.parseInt(record.get("p_id")));
 			careerAvgBowler.setSpan(record.get("span"));
 			careerAvgBowler.setInns(record.get("inns"));
@@ -278,12 +352,16 @@ public class CsvUploadService {
 		});
 	}
 
+	/**
+	 * Process and save VsCountryBowler data from CSVParser.
+	 * 
+	 * @param csvParser The CSVParser object containing VsCountryBowler data.
+	 */
 	private void processVsCountryBowler(CSVParser csvParser) {
-		
 		vsCountryBowlerRepo.deleteAll();
 		csvParser.forEach(record -> {
 			VsCountryBowler vsCountryBowler = new VsCountryBowler();
-			vsCountryBowler.setRow_id(Integer.parseInt(record.get("row_id")));
+			vsCountryBowler.setRowId( Integer.parseInt(record.get("row_id")) );
 			vsCountryBowler.setPId(Integer.parseInt(record.get("p_id")));
 			vsCountryBowler.setCountry(record.get("country"));
 			vsCountryBowler.setInns(record.get("inns"));
@@ -299,13 +377,16 @@ public class CsvUploadService {
 		});
 	}
 
+	/**
+	 * Process and save HomeVsAwayBowler data from CSVParser.
+	 * 
+	 * @param csvParser The CSVParser object containing HomeVsAwayBowler data.
+	 */
 	private void processHomeVsAwayBowler(CSVParser csvParser) {
-		
 		homeVsAwayBowlerRepo.deleteAll();
-		
 		csvParser.forEach(record -> {
 			HomeVsAwayBowler homeVsAwayBowler = new HomeVsAwayBowler();
-			homeVsAwayBowler.setRow_id(Integer.parseInt(record.get("row_id")));
+			homeVsAwayBowler.setRowId( Integer.parseInt(record.get("row_id")) );
 			homeVsAwayBowler.setPId(Integer.parseInt(record.get("p_id")));
 			homeVsAwayBowler.setVenue(record.get("venue"));
 			homeVsAwayBowler.setInns(record.get("inns"));
@@ -321,13 +402,16 @@ public class CsvUploadService {
 		});
 	}
 
+	/**
+	 * Process and save YearlyStatsBowler data from CSVParser.
+	 * 
+	 * @param csvParser The CSVParser object containing YearlyStatsBowler data.
+	 */
 	private void processYearlyStatsBowler(CSVParser csvParser) {
-		
 		yearlyStatsBowlerRepo.deleteAll();
-		
 		csvParser.forEach(record -> {
 			YearlyStatsBowler yearlyStatsBowler = new YearlyStatsBowler();
-			yearlyStatsBowler.setRow_id(Integer.parseInt(record.get("row_id")));
+			yearlyStatsBowler.setRowId( Integer.parseInt(record.get("row_id")) );
 			yearlyStatsBowler.setPId(Integer.parseInt(record.get("p_id")));
 			yearlyStatsBowler.setYear(record.get("year"));
 			yearlyStatsBowler.setInns(record.get("inns"));
@@ -342,4 +426,5 @@ public class CsvUploadService {
 			yearlyStatsBowlerRepo.save(yearlyStatsBowler);
 		});
 	}
+
 }

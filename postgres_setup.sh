@@ -19,7 +19,7 @@ CREATE TABLE player_overview(
 	born VARCHAR(255),
 	age VARCHAR(255),
 	batting_style VARCHAR(255),
-	bowling_tyle VARCHAR(255), 	--need to modify here
+	bowling_style VARCHAR(255),
 	playing_role VARCHAR(255),
     roll_id VARCHAR(255) NOT NULL,
     photo_link VARCHAR(1024)
@@ -43,6 +43,7 @@ CREATE TABLE career_avg_batsman(
     CONSTRAINT fk_player
       FOREIGN KEY(p_id) 
 	  REFERENCES player_overview(p_id)
+	  ON DELETE CASCADE
 );
 
 
@@ -59,6 +60,7 @@ CREATE TABLE vs_country_batsman(
     CONSTRAINT fk_player
       FOREIGN KEY(p_id) 
 	  REFERENCES player_overview(p_id)
+	  ON DELETE CASCADE
 );
 
 #Table4: home_vs_away_batsman
@@ -74,6 +76,7 @@ CREATE TABLE home_vs_away_batsman(
     CONSTRAINT fk_player
       FOREIGN KEY(p_id) 
 	  REFERENCES player_overview(p_id)
+	  ON DELETE CASCADE
 );
 
 #Table5: yearly_stats_batsman
@@ -89,6 +92,7 @@ CREATE TABLE yearly_stats_batsman(
     CONSTRAINT fk_player
       FOREIGN KEY(p_id) 
 	  REFERENCES player_overview(p_id)
+	  ON DELETE CASCADE
 );
 
 #Table6: career_avg_bowler
@@ -110,6 +114,7 @@ CREATE TABLE career_avg_bowler(
     CONSTRAINT fk_player
       FOREIGN KEY(p_id) 
 	  REFERENCES player_overview(p_id)
+	  ON DELETE CASCADE
 );
 
 #Table7: vs_country_bowler
@@ -128,6 +133,7 @@ CREATE TABLE vs_country_bowler(
     CONSTRAINT fk_player
       FOREIGN KEY(p_id) 
 	  REFERENCES player_overview(p_id)
+	  ON DELETE CASCADE
 );
 
 #Table8: home_vs_away_bowler
@@ -146,6 +152,7 @@ CREATE TABLE home_vs_away_bowler(
     CONSTRAINT fk_player
       FOREIGN KEY(p_id) 
 	  REFERENCES player_overview(p_id)
+	  ON DELETE CASCADE
 );
 
 #Table9: yearly_stats_bowler
@@ -164,6 +171,7 @@ CREATE TABLE yearly_stats_bowler(
     CONSTRAINT fk_player
       FOREIGN KEY(p_id) 
 	  REFERENCES player_overview(p_id)
+	  ON DELETE CASCADE
 );
 
 

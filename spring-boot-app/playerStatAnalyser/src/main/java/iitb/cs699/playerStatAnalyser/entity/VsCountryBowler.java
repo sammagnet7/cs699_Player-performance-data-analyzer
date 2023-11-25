@@ -9,16 +9,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+/**
+ * Entity class for VsCountryBowler, representing records in the 'vs_country_bowler' table.
+ */
 @Data
 @Entity
 @Table(name="vs_country_bowler")
 public class VsCountryBowler {
 	
 	
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name ="row_id")
-	private int row_id;	
+	private int rowId;	
 	
 	@Column(name ="p_id")
 	public int pId;

@@ -9,16 +9,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+
+/**
+ * Entity class for CareerAvgBowler, representing records in the 'career_avg_bowler' table.
+ */
 @Data
 @Entity
 @Table(name="career_avg_bowler")
 public class CareerAvgBowler {
 	
 	
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name ="row_id")
-	private int row_id;	
+	private int rowId;	
 	
 	@Column(name ="p_id")
 	public int pId;
