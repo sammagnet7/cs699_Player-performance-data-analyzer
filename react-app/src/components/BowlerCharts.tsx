@@ -9,7 +9,7 @@ const BowlerCharts: React.FC<ChartProps> = (plotdata) => {
     return (
         <>
             <div className="row gx-2" id='barplot-container'>
-                <div className='col col-md-6'>
+                <div className='col col-md-6' id='yoyplot'>
                     <Card className='shadow p-3 bg-body-tertiary rounded'>
                         <Card.Header>Year on Year Performance</Card.Header>
                         <Card.Body className='d-flex align-items-center justify-content-center'>
@@ -18,7 +18,7 @@ const BowlerCharts: React.FC<ChartProps> = (plotdata) => {
                     </Card>
                 </div>
 
-                <div className='col col-md-6'>
+                <div className='col col-md-6' id='vscplot'>
                     <Card className='shadow p-3 bg-body-tertiary rounded'>
                         <Card.Header>VsCountry</Card.Header>
                         <Card.Body className='d-flex align-items-center justify-content-center'>
@@ -28,7 +28,7 @@ const BowlerCharts: React.FC<ChartProps> = (plotdata) => {
                 </div>
             </div>
             <div className="row gx-2" id='radialplot-container'>
-                <div className='col col-md-6'>
+                <div className='col col-md-6' id='radarchart'>
                     <Card className='shadow p-3 bg-body-tertiary rounded'>
                         <Card.Header>Home vs Away vs Neutral</Card.Header>
                         <Card.Body className='d-flex align-items-center justify-content-center'>
@@ -36,7 +36,7 @@ const BowlerCharts: React.FC<ChartProps> = (plotdata) => {
                         </Card.Body>
                     </Card>
                 </div>
-                <div className='col col-md-6'>
+                <div className='col col-md-6' id='pieplot'>
                     <Card className='shadow p-3 bg-body-tertiary rounded'>
                         <Card.Header>Wicket type distribution</Card.Header>
                         <Card.Body className='d-flex align-items-center justify-content-center'>

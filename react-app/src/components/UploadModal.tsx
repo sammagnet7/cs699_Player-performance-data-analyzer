@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 import Modal from 'react-bootstrap/Modal';
 import { Alert } from 'react-bootstrap';
-
+import { saveAs } from 'file-saver';
 interface UploadModalProps {
     onHide: () => void;
     show: boolean;
@@ -11,6 +12,9 @@ interface UploadModalProps {
 const UploadModal: React.FC<UploadModalProps> = (props) => {
     const [file, setFile] = useState<File | null>(null);
     const [showAlert, setShowAlert] = useState(false);
+    const [msg, setMsg] = useState("");
+    const [alertVariant, setAlertVariant] = useState("danger");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files && event.target.files[0];
@@ -24,13 +28,55 @@ const UploadModal: React.FC<UploadModalProps> = (props) => {
             return;
         }
         else {
+            setIsLoading(true);
             console.log('Uploading file:', file);
+            const formData = new FormData();
+            formData.append('csv', file);
+
+            fetch('http://localhost:8080/csv/upload', {
+                method: 'POST',
+                body: formData,
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        console.log('File uploaded successfully');
+                    } else {
+                        console.error('Failed to upload file');
+                    }
+                    return response.text().then((responseText) => ({
+                        text: responseText,
+                        status: response.status,
+                    }));
+                }).then(({ text, status }) => {
+                    setIsLoading(false);
+                    setMsg(text);
+                    if (status == 200)
+                        setAlertVariant("success");
+                    else {
+                        setAlertVariant("danger");
+                    }
+                    setShowAlert(true);
+                })
+                .catch((error) => {
+                    console.error('Error uploading file:', error);
+                })
         }
-        props.onHide();
     };
     const closeAlert = () => {
+        props.onHide();
         setShowAlert(false);
     };
+    const downloadData = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/csv/download');
+            const blob = await response.blob();
+
+            // Use file-saver to trigger the download
+            saveAs(blob, 'player_performance.zip');
+        } catch (error) {
+            console.error('Error downloading zip file:', error);
+        }
+    }
     return (
         <Modal
             {...props}
@@ -44,6 +90,9 @@ const UploadModal: React.FC<UploadModalProps> = (props) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <Button variant="success" id="dwnldBtn" onClick={downloadData}>
+                    Download
+                </Button>
                 <form>
                     <div className="mb-3">
                         <label htmlFor="fileInput" className="form-label">
@@ -59,30 +108,24 @@ const UploadModal: React.FC<UploadModalProps> = (props) => {
                     </div>
                 </form>
                 {showAlert && (
-                    <Alert variant="danger" onClose={closeAlert} dismissible>
-                        Please choose a file before uploading.
+                    <Alert variant={alertVariant} onClose={closeAlert} dismissible>
+                        {msg}
                     </Alert>
                 )}
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
-                <Button onClick={handleUpload} variant='warning' type='button'>Upload</Button>
+                <Button onClick={closeAlert}>Close</Button>
+                <Button onClick={handleUpload} variant='warning' type='button'>
+                    {isLoading && <Spinner
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                    />}
+                    Upload
+                </Button>
             </Modal.Footer>
         </Modal>
-    );
-};
-
-const App: React.FC = () => {
-    const [modalShow, setModalShow] = useState(false);
-
-    return (
-        <>
-            <Button variant="primary" onClick={() => setModalShow(true)}>
-                Launch vertically centered modal
-            </Button>
-
-            <UploadModal show={modalShow} onHide={() => setModalShow(false)} />
-        </>
     );
 };
 

@@ -16,6 +16,14 @@
         margin-right: 0rem;
     }
 
+    #vscplot {
+        margin-top: 15rem;
+    }
+
+    #pieplot {
+        margin-top: 15rem;
+    }
+
     #radialplot-container {
         margin-top: 15rem;
         margin-left: 0rem;
