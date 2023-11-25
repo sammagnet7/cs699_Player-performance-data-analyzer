@@ -7,6 +7,7 @@ import PieChart from './PieChart'
 import { VscPlotProps } from './VscPlot'
 import { YoyPlotProps } from './YoyPlot'
 import { PieChartProps } from './PieChart'
+import './Charts.css'
 export interface ChartProps {
     yoyPlotData: YoyPlotProps | undefined;
     vscPlotData: VscPlotProps | undefined;
@@ -17,8 +18,8 @@ export interface ChartProps {
 const BatsmanCharts: React.FC<ChartProps> = (plotdata) => {
     return (
         <>
-            <div className="row gx-2 gy-2" style={{ marginLeft: "5rem", marginRight: "5rem" }}>
-                <div className='col col-md-6'>
+            <div className="row gx-2" id='barplot-container'>
+                <div className='col col-md-6' id='yoyplot'>
                     <Card className='shadow p-3 bg-body-tertiary rounded'>
                         <Card.Header>Year on Year Performance</Card.Header>
                         <Card.Body className='d-flex align-items-center justify-content-center'>
@@ -36,7 +37,7 @@ const BatsmanCharts: React.FC<ChartProps> = (plotdata) => {
                     </Card>
                 </div>
             </div>
-            <div className="row gx-2 gy-2" style={{ marginLeft: "5rem", marginRight: "5rem" }}>
+            <div className="row gx-2" id='radialplot-container'>
                 <div className='col col-md-6'>
                     <Card className='shadow p-3 bg-body-tertiary rounded'>
                         <Card.Header>Home vs Away vs Neutral</Card.Header>

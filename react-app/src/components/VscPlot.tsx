@@ -9,10 +9,10 @@ export interface VscPlotProps {
 
 const VscPlot: React.FC<VscPlotProps> = ({ data }) => {
     const svgRef = useRef<SVGSVGElement | null>(null);
-    const margin = { top: 20, right: 30, bottom: 40, left: 40 };
-    const width = 700 - margin.left - margin.right;
+    const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+    const width = 650 - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
-    const legendX = width - 200;
+    const legendX = width / 4;
     const legendY = 2;
 
     useEffect(() => {

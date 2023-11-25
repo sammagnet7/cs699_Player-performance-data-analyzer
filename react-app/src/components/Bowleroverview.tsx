@@ -8,7 +8,7 @@ export interface overviewBow {
 }
 const Bowleroverview = (pl: overviewBow) => {
     return (
-        <Card className='shadow p-3 mb-2 bg-body-tertiary rounded'>
+        <Card className='shadow mb-2 bg-body-tertiary rounded' id='overview'>
             <Card.Body>
                 <div className='row g-2 mb-2'>
                     <div className='col col-md-4'> <h4>Full Name: <small className='text-body-secondary'>{pl.player.fullName}</small></h4></div>
