@@ -15,9 +15,10 @@ import lombok.Data;
 public class PlayerOverview {
 	
 	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.)
 	@Id
-	private int row_id;	
+	@Column(name ="row_id")
+	private Integer row_id;	
 	
 	@Column(name ="p_id")
 	public int pId;

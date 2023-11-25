@@ -38,17 +38,18 @@ public class CsvController {
 	    }
 	}
 
-//	
-//	@PostMapping("/upload")
-//    public ResponseEntity<String> uploadCsv(@RequestParam("file") MultipartFile zipFile) {
-//        try {
-//        	uploadService.uploadCsvFiles(zipFile);
-//            return new ResponseEntity<>("CSV data uploaded successfully", HttpStatus.OK);
-//        } catch (IOException e) {
-//            return new ResponseEntity<>("Failed to upload CSV data", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-
+	
+	@PostMapping("/upload")
+    public ResponseEntity<String> uploadCsv(@RequestParam("csv") MultipartFile zipFile) {
+        try {
+            // Process the uploaded ZIP file
+        	uploadService.uploadCsvFiles(zipFile);  // Implement this method in CsvService
+            return new ResponseEntity<>("CSV data uploaded successfully", HttpStatus.OK);
+        } catch (IOException e) {
+        	e.printStackTrace();
+            return new ResponseEntity<>("Failed to upload CSV data", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 	
 
 

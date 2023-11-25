@@ -15,8 +15,9 @@ import lombok.Data;
 public class VsCountryBowler {
 	
 	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@Column(name ="row_id")
 	private int row_id;	
 	
 	@Column(name ="p_id")
