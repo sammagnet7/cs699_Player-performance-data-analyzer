@@ -53,7 +53,7 @@ function Searchbar(setSearch: SearchProps) {
   const [predefinedSuggestions, setPredefinedSuggestions] = useState<Player[]>([]);
   const [validated, setValidated] = useState(false);
   const [valid, setValid] = useState(true);
-  const [modalShow, setModalShow] = useState(false);
+
   const context = useContext(PlayerContext);
 
   useEffect(() => {
@@ -144,11 +144,6 @@ function Searchbar(setSearch: SearchProps) {
           <Button variant="primary" id="searchBtn" type="submit">
             Search
           </Button>
-
-          <Button variant="warning" id="upldBtn" onClick={() => setModalShow(true)}>
-            Import
-          </Button>
-          <UploadModal show={modalShow} onHide={() => setModalShow(false)} />
           <Form.Control.Feedback type="invalid" className='fs-5 fw-bold'>
             Please enter a valid player name.
           </Form.Control.Feedback>
