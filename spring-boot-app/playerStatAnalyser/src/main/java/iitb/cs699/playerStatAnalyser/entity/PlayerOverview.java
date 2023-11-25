@@ -9,16 +9,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+/**
+ * Entity class for PlayerOverview, representing records in the 'player_overview' table.
+ */
 @Data
 @Entity
 @Table(name="player_overview")
 public class PlayerOverview {
 	
 	
-	//@GeneratedValue(strategy = GenerationType.)
 	@Id
 	@Column(name ="row_id")
-	private Integer row_id;	
+	private Integer rowId;	
 	
 	@Column(name ="p_id")
 	public int pId;
@@ -33,7 +35,7 @@ public class PlayerOverview {
 	@Column(name = "batting_style")
 	public String battingStyle;
 	
-	@Column(name = "bowling_tyle")
+	@Column(name = "bowling_style")
 	public String bowlingStyle;
 	
 	@Column(name = "playing_role")

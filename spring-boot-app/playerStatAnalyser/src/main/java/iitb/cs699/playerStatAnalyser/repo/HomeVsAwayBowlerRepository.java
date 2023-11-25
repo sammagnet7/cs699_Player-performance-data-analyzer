@@ -6,10 +6,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import iitb.cs699.playerStatAnalyser.entity.HomeVsAwayBowler;
 
+/**
+ * Repository interface for HomeVsAwayBowler entity, extending JpaRepository.
+ */
 public interface HomeVsAwayBowlerRepository extends JpaRepository<HomeVsAwayBowler, Integer> {
 
-	List<HomeVsAwayBowler> findBypId(Integer pid);
-	
-	
-
+    /**
+     * Custom query method to find HomeVsAwayBowler records by player ID.
+     *
+     * @param pid The player ID to search for.
+     * @return List of HomeVsAwayBowler records matching the player ID.
+     */
+    List<HomeVsAwayBowler> findBypId(Integer pid);
 }
