@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import Modal from 'react-bootstrap/Modal';
-import { Alert } from 'react-bootstrap';
+import { Alert, Tooltip } from 'react-bootstrap';
 import { saveAs } from 'file-saver';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 interface UploadModalProps {
     onHide: () => void;
     show: boolean;
@@ -24,6 +25,8 @@ const UploadModal: React.FC<UploadModalProps> = (props) => {
     const handleUpload = () => {
 
         if (!file) {
+            setAlertVariant("danger");
+            setMsg("Please select a file before uploading!");
             setShowAlert(true);
             return;
         }
@@ -80,6 +83,7 @@ const UploadModal: React.FC<UploadModalProps> = (props) => {
     return (
         <Modal
             {...props}
+            onExit={() => setShowAlert(false)}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -90,9 +94,20 @@ const UploadModal: React.FC<UploadModalProps> = (props) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Button variant="success" id="dwnldBtn" onClick={downloadData}>
-                    Download
-                </Button>
+                <OverlayTrigger
+                    key="right"
+                    placement="right"
+                    overlay={
+                        <Tooltip id="tooltip-right">
+                            <strong>Download csv template</strong>.
+                        </Tooltip>
+                    }
+                >
+                    <Button variant="success" id="dwnldBtn" onClick={downloadData}>
+                        Download
+                    </Button>
+                </OverlayTrigger>
+
                 <form>
                     <div className="mb-3">
                         <label htmlFor="fileInput" className="form-label">
