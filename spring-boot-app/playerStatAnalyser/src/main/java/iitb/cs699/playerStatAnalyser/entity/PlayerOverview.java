@@ -7,15 +7,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name="player_overview")
 public class PlayerOverview {
 	
 	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.)
 	@Id
-	private int row_id;	
+	@Column(name ="row_id")
+	private Integer row_id;	
 	
 	@Column(name ="p_id")
 	public int pId;

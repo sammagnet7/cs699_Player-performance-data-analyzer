@@ -7,14 +7,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name="yearly_stats_bowler")
 public class YearlyStatsBowler {
 	
 	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
+	@Column(name ="row_id")
 	private int row_id;	
 	
 	@Column(name ="p_id")

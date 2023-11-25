@@ -19,7 +19,7 @@ CREATE TABLE player_overview(
 	born VARCHAR(255),
 	age VARCHAR(255),
 	batting_style VARCHAR(255),
-	bowling_tyle VARCHAR(255),
+	bowling_tyle VARCHAR(255), 	--need to modify here
 	playing_role VARCHAR(255),
     roll_id VARCHAR(255) NOT NULL,
     photo_link VARCHAR(1024)

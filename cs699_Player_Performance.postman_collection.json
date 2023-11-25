@@ -391,6 +391,58 @@
 				"description": "Particular batsman"
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:8080/overview/all Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/csv/download",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"csv",
+						"download"
+					]
+				},
+				"description": "Fetches overview of all players"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/overview/all Copy 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "csv",
+							"type": "file",
+							"src": "/Users/soumikdutta/Downloads/response.zip"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/csv/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"csv",
+						"upload"
+					]
+				},
+				"description": "Fetches overview of all players"
+			},
+			"response": []
 		}
 	]
 }
