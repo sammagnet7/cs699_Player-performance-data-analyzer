@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Player } from './Searchbar'
 import { useContext } from 'react';
 import { PlayerContext } from '../App';
@@ -13,8 +13,6 @@ import { PieChartProps } from './PieChart';
 import { HvAPlotProps } from './RadarChart';
 import { Layer } from './RadarChart';
 import './Charts.css'
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 export const API_URL_CAVG_BAT = 'http://localhost:8080/batsman/careeravg/';
 export const API_URL_CAVG_BOW = 'http://localhost:8080/bowler/careeravg/';
 const API_URL_VSC_BAT = 'http://localhost:8080/batsman/vscountry/';
@@ -103,19 +101,6 @@ const PlayerProfile = () => {
     const [vscBowl, setVscBowl] = useState<VscPlotProps>();
     const [hvaBowl, setHvaBowl] = useState<HvAPlotProps>();
     const [pieBowl, setPieBowl] = useState<PieChartProps>();
-    const pdfRef = useRef(null);
-    // const handleDownload = () => {
-    //     const content = pdfRef.current;
-
-    //     if (content) {
-    //         html2canvas(content).then((canvas) => {
-    //             const imgData = canvas.toDataURL('image/png');
-    //             const pdf = new jsPDF('p', 'mm', 'a4', true);
-    //             pdf.addImage(imgData, 'PNG', 0, 0);
-    //             pdf.save('download.pdf');
-    //         });
-    //     }
-    // };
     const fetchBatsmanData = () => {
         const cavgPromise = fetchFromAPI(API_URL_CAVG_BAT, context?.player?.pId);
         const yoyPromise = fetchFromAPI(API_URL_YS_BAT, context?.player?.pId);
