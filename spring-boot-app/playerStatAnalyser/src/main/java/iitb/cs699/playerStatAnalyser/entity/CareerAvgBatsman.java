@@ -23,34 +23,34 @@ public class CareerAvgBatsman {
 	private int rowId;
 	
 	@Column(name ="p_id")
-	public int pId;
+	private int pId;
 	
-	public String span;
+	private String span;
 	
-	public String inns;
+	private String inns;
 	
-	public String runs;
+	private String runs;
 	
-	public String hs;
+	private String hs;
 	
-	public String ave;
+	private String ave;
 	
-	public String sr;
+	private String sr;
 	
 	@Column(name="100")
-	public String _100s;
+	private String _100s;
 	
 	@Column(name="50")
-	public String _50s;
+	private String _50s;
 	
 	@Column(name="0")
-	public String _0s;
+	private String _0s;
 	
 	@Column(name="4s")
-	public String _4s;
+	private String _4s;
 	
 	@Column(name="6s")
-	public String _6s;
+	private String _6s;
 	
 
 

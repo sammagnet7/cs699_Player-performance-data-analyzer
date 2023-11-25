@@ -24,32 +24,32 @@ public class CareerAvgBowler {
 	private int rowId;	
 	
 	@Column(name ="p_id")
-	public int pId;
+	private int pId;
 	
-	public String span;
+	private String span;
 	
-	public String inns;
+	private String inns;
 	
-	public String overs;
+	private String overs;
 	
-	public String mdns;
+	private String mdns;
 	
-	public String runs;
+	private String runs;
 	
-	public String wkts;
+	private String wkts;
 	
-	public String ave;
+	private String ave;
 	
-	public String econ;
+	private String econ;
 	
-	public String sr;
+	private String sr;
 	
-	public String caught;
+	private String caught;
 	
-	public String bowled;
+	private String bowled;
 	
 	@Column(name="leg_before_wicket")
-	public String lbw;
+	private String lbw;
 	
 	
 }

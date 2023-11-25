@@ -9,12 +9,14 @@ package iitb.cs699.playerStatAnalyser;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Main class annotated as a Spring Boot application
  */
+@EnableTransactionManagement
 @SpringBootApplication
 public class PlayerStatAnalyserApplication {
 

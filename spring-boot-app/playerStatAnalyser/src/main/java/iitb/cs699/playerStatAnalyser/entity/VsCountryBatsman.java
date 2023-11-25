@@ -26,17 +26,17 @@ public class VsCountryBatsman {
 	@Column(name ="p_id")
 	public int pId;
 	
-	public String country;
+	private String country;
 	
-	public String inns;
+	private String inns;
 	
-	public String runs;
+	private String runs;
 	
-	public String hs;
+	private String hs;
 	
-	public String ave;
+	private String ave;
 	
-	public String sr;
+	private String sr;
 
 
 

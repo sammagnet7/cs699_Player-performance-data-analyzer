@@ -24,25 +24,25 @@ public class HomeVsAwayBowler {
 	private int rowId;	
 	
 	@Column(name ="p_id")
-	public int pId;
+	private int pId;
 	
-	public String venue;
+	private String venue;
 	
-	public String inns;
+	private String inns;
 	
-	public String overs;
+	private String overs;
 	
-	public String mdns;
+	private String mdns;
 	
-	public String runs;
+	private String runs;
 	
-	public String wkts;
+	private String wkts;
 	
-	public String ave;
+	private String ave;
 	
-	public String econ;
+	private String econ;
 	
-	public String sr;
+	private String sr;
 	
 
 

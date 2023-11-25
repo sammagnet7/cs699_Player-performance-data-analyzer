@@ -23,28 +23,28 @@ public class PlayerOverview {
 	private Integer rowId;	
 	
 	@Column(name ="p_id")
-	public int pId;
+	private int pId;
 	
 	@Column(name = "full_name")
-	public String fullName;
+	private String fullName;
 	
-	public String born;
+	private String born;
 	
-	public String age;
+	private String age;
 	
 	@Column(name = "batting_style")
-	public String battingStyle;
+	private String battingStyle;
 	
 	@Column(name = "bowling_style")
-	public String bowlingStyle;
+	private String bowlingStyle;
 	
 	@Column(name = "playing_role")
-	public String playingRole;
+	private String playingRole;
 	
-	public String roll_id;
+	private String roll_id;
 	
 	@Column(name = "photo_link")
-	public String photoLink;
+	private String photoLink;
 
 
 

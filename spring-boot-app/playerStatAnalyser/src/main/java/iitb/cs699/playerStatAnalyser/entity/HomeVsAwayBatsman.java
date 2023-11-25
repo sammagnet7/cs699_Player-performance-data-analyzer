@@ -23,19 +23,19 @@ public class HomeVsAwayBatsman {
 	private int rowId;	
 	
 	@Column(name ="p_id")
-	public int pId;
+	private int pId;
 	
-	public String venue;
+	private String venue;
 	
-	public String inns;
+	private String inns;
 	
-	public String runs;
+	private String runs;
 	
-	public String hs;
+	private String hs;
 	
-	public String ave;
+	private String ave;
 	
-	public String sr;
+	private String sr;
 	
 
 

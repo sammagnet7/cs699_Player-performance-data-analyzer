@@ -13,11 +13,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import iitb.cs699.playerStatAnalyser.entity.CareerAvgBatsman;
 import iitb.cs699.playerStatAnalyser.entity.CareerAvgBowler;
 import iitb.cs699.playerStatAnalyser.entity.HomeVsAwayBatsman;
@@ -36,6 +38,9 @@ import iitb.cs699.playerStatAnalyser.repo.VsCountryBatsmanRepository;
 import iitb.cs699.playerStatAnalyser.repo.VsCountryBowlerRepository;
 import iitb.cs699.playerStatAnalyser.repo.YearlyStatsBatsmanRepository;
 import iitb.cs699.playerStatAnalyser.repo.YearlyStatsBowlerRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -98,6 +103,9 @@ public class CsvUploadService {
 	 */
 	@Autowired
 	private PlayerOverviewRepository playerOverviewRepo;
+	
+	
+	
 
 	/**
 	 * Method to upload a ZIP file containing CSV files and process each CSV file.
@@ -197,7 +205,9 @@ public class CsvUploadService {
 	 * @return The table name.
 	 */
 	private String getTableName(String fileName) {
-		return fileName.split(".csv")[0].toLowerCase();
+				
+		String[] tokens= fileName.split(".csv")[0].toLowerCase().split("/");
+		return tokens[ tokens.length - 1];
 	}
 
 	/**
@@ -262,6 +272,7 @@ public class CsvUploadService {
 	private void processVsCountryBatsman(CSVParser csvParser) {
 
 		vsCountryBatsmanRepo.deleteAll();
+		
 		csvParser.forEach(record -> {
 			VsCountryBatsman vsCountryBatsman = new VsCountryBatsman();
 			vsCountryBatsman.setRowId( Integer.parseInt(record.get("row_id")) );
