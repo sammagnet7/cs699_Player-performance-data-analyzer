@@ -42,8 +42,8 @@ public class OverviewService {
 	 * @param pid Player ID
 	 * @return PlayerOverview entity for the specified player ID
 	 */
-	public PlayerOverview findPlayerOverviewByPId(Integer pid) {
-		Optional<PlayerOverview> optionalPlayerOverview = playerOverviewRepo.findById(pid);
+	public PlayerOverview findPlayerOverviewByPId(int pid) {
+		Optional<PlayerOverview> optionalPlayerOverview = Optional.of(playerOverviewRepo.findBypId(pid));
 		return optionalPlayerOverview.orElse(null);
 	}
 }

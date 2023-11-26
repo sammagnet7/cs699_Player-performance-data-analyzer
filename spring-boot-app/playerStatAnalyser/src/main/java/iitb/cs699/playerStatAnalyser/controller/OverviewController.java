@@ -45,7 +45,7 @@ public class OverviewController {
 	 * @return PlayerOverview entity for the specified player ID
 	 */
 	@GetMapping(path = "/{pid}")
-    public PlayerOverview findPlayerOverviewbyPId(@PathVariable Integer pid) {
+    public PlayerOverview findPlayerOverviewbyPId(@PathVariable int pid) {
         return overviewService.findPlayerOverviewByPId(pid);
     }
 }
