@@ -10,7 +10,7 @@ export interface SearchProps {
   onDataReceived: () => void;
 }
 export interface Player {
-  pId: number;
+  pid: number;
   fullName: string;
   born: string;
   age: string;
@@ -153,7 +153,7 @@ function Searchbar(setSearch: SearchProps) {
       {query && (
         <ul id='suggestionList' className="list-group">
           {suggestions.map((suggestion) => (
-            <li className="list-group-item card mb-1" key={suggestion.pId} onClick={() => handleSuggestionClick(suggestion)}>
+            <li className="list-group-item card mb-1" key={suggestion.pid} onClick={() => handleSuggestionClick(suggestion)}>
               <div className="row g-0">
                 <div className="col col-md-2">
                   <img src={suggestion.photoLink} className="p-icon img-fluid my-auto" alt="..." />

@@ -102,10 +102,10 @@ const PlayerProfile = () => {
     const [hvaBowl, setHvaBowl] = useState<HvAPlotProps>();
     const [pieBowl, setPieBowl] = useState<PieChartProps>();
     const fetchBatsmanData = () => {
-        const cavgPromise = fetchFromAPI(API_URL_CAVG_BAT, context?.player?.pId);
-        const yoyPromise = fetchFromAPI(API_URL_YS_BAT, context?.player?.pId);
-        const vscPromise = fetchFromAPI(API_URL_VSC_BAT, context?.player?.pId);
-        const hvaPromise = fetchFromAPI(API_URL_HVA_BAT, context?.player?.pId);
+        const cavgPromise = fetchFromAPI(API_URL_CAVG_BAT, context?.player?.pid);
+        const yoyPromise = fetchFromAPI(API_URL_YS_BAT, context?.player?.pid);
+        const vscPromise = fetchFromAPI(API_URL_VSC_BAT, context?.player?.pid);
+        const hvaPromise = fetchFromAPI(API_URL_HVA_BAT, context?.player?.pid);
         let piePlotData: PieChartProps | undefined;
         let yoyPlotData: YoyPlotProps | undefined;
         let vscPlotData: VscPlotProps | undefined;
@@ -181,10 +181,10 @@ const PlayerProfile = () => {
     }
 
     const fetchBowlerData = () => {
-        const cavgPromise = fetchFromAPI(API_URL_CAVG_BOW, context?.player?.pId);
-        const yoyPromise = fetchFromAPI(API_URL_YS_BOW, context?.player?.pId);
-        const vscPromise = fetchFromAPI(API_URL_VSC_BOW, context?.player?.pId);
-        const hvaPromise = fetchFromAPI(API_URL_HVA_BOW, context?.player?.pId);
+        const cavgPromise = fetchFromAPI(API_URL_CAVG_BOW, context?.player?.pid);
+        const yoyPromise = fetchFromAPI(API_URL_YS_BOW, context?.player?.pid);
+        const vscPromise = fetchFromAPI(API_URL_VSC_BOW, context?.player?.pid);
+        const hvaPromise = fetchFromAPI(API_URL_HVA_BOW, context?.player?.pid);
         let piePlotData: PieChartProps | undefined;
         let yoyPlotData: YoyPlotProps | undefined;
         let vscPlotData: VscPlotProps | undefined;
