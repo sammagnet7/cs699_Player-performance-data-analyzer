@@ -23,39 +23,39 @@ const ComparePlayers = () => {
         let cavgPromiseBat: Promise<any>;
         let cavgPromiseBow: Promise<any>;
         if (playerA.roll_id === "BAT") {
-            cavgPromiseBat = fetchFromAPI(API_URL_CAVG_BAT, playerB.pId);
-            cavgPromiseBat.then((apiData) => {
-                setCareerAvgB_Bat(apiData[0]);
+            cavgPromiseBat = fetchFromAPI(API_URL_CAVG_BAT, playerB.pid);
+            cavgPromiseBat.then((apidata) => {
+                setCareerAvgB_Bat(apidata[0]);
             })
 
         }
         else if (playerA.roll_id === "BOW") {
-            cavgPromiseBow = fetchFromAPI(API_URL_CAVG_BOW, playerB.pId);
-            cavgPromiseBow.then((apiData) => {
-                setCareerAvgB_Bow(apiData[0]);
+            cavgPromiseBow = fetchFromAPI(API_URL_CAVG_BOW, playerB.pid);
+            cavgPromiseBow.then((apidata) => {
+                setCareerAvgB_Bow(apidata[0]);
             })
         }
         else {
             if (playerB.roll_id === "BAT") {
-                cavgPromiseBat = fetchFromAPI(API_URL_CAVG_BAT, playerB.pId);
-                cavgPromiseBat.then((apiData) => {
-                    setCareerAvgB_Bat(apiData[0]);
+                cavgPromiseBat = fetchFromAPI(API_URL_CAVG_BAT, playerB.pid);
+                cavgPromiseBat.then((apidata) => {
+                    setCareerAvgB_Bat(apidata[0]);
                 })
             }
             else if (playerB.roll_id === "BOW") {
-                cavgPromiseBow = fetchFromAPI(API_URL_CAVG_BOW, playerB.pId);
-                cavgPromiseBow.then((apiData) => {
-                    setCareerAvgB_Bow(apiData[0]);
+                cavgPromiseBow = fetchFromAPI(API_URL_CAVG_BOW, playerB.pid);
+                cavgPromiseBow.then((apidata) => {
+                    setCareerAvgB_Bow(apidata[0]);
                 })
             }
             else {
-                cavgPromiseBat = fetchFromAPI(API_URL_CAVG_BAT, playerB.pId);
-                cavgPromiseBow = fetchFromAPI(API_URL_CAVG_BOW, playerB.pId);
-                cavgPromiseBat.then((apiData) => {
-                    setCareerAvgB_Bat(apiData[0]);
+                cavgPromiseBat = fetchFromAPI(API_URL_CAVG_BAT, playerB.pid);
+                cavgPromiseBow = fetchFromAPI(API_URL_CAVG_BOW, playerB.pid);
+                cavgPromiseBat.then((apidata) => {
+                    setCareerAvgB_Bat(apidata[0]);
                 })
-                cavgPromiseBow.then((apiData) => {
-                    setCareerAvgB_Bow(apiData[0]);
+                cavgPromiseBow.then((apidata) => {
+                    setCareerAvgB_Bow(apidata[0]);
                 })
             }
         }
