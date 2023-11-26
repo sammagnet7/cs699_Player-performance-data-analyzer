@@ -2,5 +2,12 @@
 Player performance analysis :CS699: Software lab: IITB
 
 
-Spring boot endpoint: http://localhost:8080/
-Node: http://localhost:5173/
+Spring boot:
+cd spring-boot-app/playerStatAnalyser
+./mvnw spring-boot:run
+endpoint: http://localhost:8080/
+
+Node: 
+cd react-app
+npm run dev
+endpoitn: http://localhost:5173/
