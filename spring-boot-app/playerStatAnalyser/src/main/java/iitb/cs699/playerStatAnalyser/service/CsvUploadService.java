@@ -11,6 +11,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -38,9 +42,6 @@ import iitb.cs699.playerStatAnalyser.repo.VsCountryBatsmanRepository;
 import iitb.cs699.playerStatAnalyser.repo.VsCountryBowlerRepository;
 import iitb.cs699.playerStatAnalyser.repo.YearlyStatsBatsmanRepository;
 import iitb.cs699.playerStatAnalyser.repo.YearlyStatsBowlerRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -116,10 +117,28 @@ public class CsvUploadService {
 	public void uploadCsvFiles(MultipartFile zipFile) throws IOException {
 
 		try (ZipInputStream zipInputStream = new ZipInputStream(zipFile.getInputStream())) {
+			
+			
+			// Create a list to store the entries
+            List<ZipEntry> entries = new ArrayList<>();
+
+            // Read all entries from the ZIP file
+            ZipEntry tempEntry;
+            while ((tempEntry = zipInputStream.getNextEntry()) != null) {
+            	tempEntry.setComment(getTableName(tempEntry.getName()));
+                entries.add(tempEntry);
+            }
+
+            // Sort the entries based on their names
+            entries.sort(Comparator.comparing(ZipEntry::getComment));
+            
 
 			ZipEntry entry;
-
-			while ((entry = zipInputStream.getNextEntry()) != null) {
+			ListIterator<ZipEntry> iterator = entries.listIterator();
+			
+			while ( iterator.hasNext() ) {
+				
+				entry = iterator.next();
 
 				String originalFilename = entry.getName();
 				if (originalFilename == null || originalFilename.isEmpty()) {
