@@ -8,10 +8,10 @@ unzip Csv.zip
 psql -U cs699 -d player -h 127.0.0.1 -W
 
 ---------------------------------
-#All create table scripts below :
+--All create table scripts below :
 ---------------------------------
 
-#Table1: player_overview
+--Table1: player_overview
 CREATE TABLE player_overview(
 	row_id int,
     p_id int primary key,
@@ -25,7 +25,7 @@ CREATE TABLE player_overview(
     photo_link VARCHAR(1024)
 );
 
-#Table2: career_avg_batsman
+--Table2: career_avg_batsman
 CREATE TABLE career_avg_batsman(
 	row_id int primary key,
 	p_id INT NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE career_avg_batsman(
 );
 
 
-#Table3: vs_country_batsman
+--Table3: vs_country_batsman
 CREATE TABLE vs_country_batsman(
 	row_id int primary key,
 	p_id INT NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE vs_country_batsman(
 	  ON DELETE CASCADE
 );
 
-#Table4: home_vs_away_batsman
+--Table4: home_vs_away_batsman
 CREATE TABLE home_vs_away_batsman(
 	row_id int primary key,
 	p_id INT NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE home_vs_away_batsman(
 	  ON DELETE CASCADE
 );
 
-#Table5: yearly_stats_batsman
+--Table5: yearly_stats_batsman
 CREATE TABLE yearly_stats_batsman(
 	row_id int primary key,
 	p_id INT NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE yearly_stats_batsman(
 	  ON DELETE CASCADE
 );
 
-#Table6: career_avg_bowler
+--Table6: career_avg_bowler
 CREATE TABLE career_avg_bowler(
 	row_id int primary key,
 	p_id INT NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE career_avg_bowler(
 	  ON DELETE CASCADE
 );
 
-#Table7: vs_country_bowler
+--Table7: vs_country_bowler
 CREATE TABLE vs_country_bowler(
 	row_id int primary key,
 	p_id INT NOT NULL,
@@ -136,7 +136,7 @@ CREATE TABLE vs_country_bowler(
 	  ON DELETE CASCADE
 );
 
-#Table8: home_vs_away_bowler
+--Table8: home_vs_away_bowler
 CREATE TABLE home_vs_away_bowler(
 	row_id int primary key,
 	p_id INT NOT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE home_vs_away_bowler(
 	  ON DELETE CASCADE
 );
 
-#Table9: yearly_stats_bowler
+--Table9: yearly_stats_bowler
 CREATE TABLE yearly_stats_bowler(
 	row_id int primary key,
 	p_id INT NOT NULL,
@@ -180,10 +180,13 @@ CREATE TABLE yearly_stats_bowler(
 #Drop table scripts
 --------------------
 drop table career_avg_bowler;
-drop table home_vs_away_batsman;
 drop table home_vs_away_bowler;
-drop table player_overview_v2;
-drop table vs_country_batsman;
 drop table vs_country_bowler;
-drop table yearly_stats_batsman;
 drop table yearly_stats_bowler;
+
+drop table career_avg_batsman;
+drop table home_vs_away_batsman;
+drop table vs_country_batsman;
+drop table yearly_stats_batsman;
+
+drop table player_overview;

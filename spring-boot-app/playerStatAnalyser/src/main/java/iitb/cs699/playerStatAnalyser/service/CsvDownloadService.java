@@ -112,15 +112,15 @@ public class CsvDownloadService {
 
 		try (ZipOutputStream zipFile = new ZipOutputStream(zipOutputStream)) {
 
-			addCsvToZip(zipFile, "player_overview", getPlayerOverviewCsv());
-			addCsvToZip(zipFile, "career_avg_batsman", getCareerAvgBatsmanCsv());
-			addCsvToZip(zipFile, "vs_country_batsman", getVsCountryBatsmanCsv());
-			addCsvToZip(zipFile, "home_vs_away_batsman", getHomeVsAwayBatsmanCsv());
-			addCsvToZip(zipFile, "yearly_stats_batsman", getYearlyStatsBatsmanCsv());
-			addCsvToZip(zipFile, "career_avg_bowler", getCareerAvgBowlerCsv());
-			addCsvToZip(zipFile, "vs_country_bowler", getVsCountryBowlerCsv());
-			addCsvToZip(zipFile, "home_vs_away_bowler", getHomeVsAwayBowlerCsv());
-			addCsvToZip(zipFile, "yearly_stats_bowler", getYearlyStatsBowlerCsv());
+			addCsvToZip(zipFile, "1_player_overview", getPlayerOverviewCsv());
+			addCsvToZip(zipFile, "2_career_avg_batsman", getCareerAvgBatsmanCsv());
+			addCsvToZip(zipFile, "3_vs_country_batsman", getVsCountryBatsmanCsv());
+			addCsvToZip(zipFile, "4_home_vs_away_batsman", getHomeVsAwayBatsmanCsv());
+			addCsvToZip(zipFile, "5_yearly_stats_batsman", getYearlyStatsBatsmanCsv());
+			addCsvToZip(zipFile, "6_career_avg_bowler", getCareerAvgBowlerCsv());
+			addCsvToZip(zipFile, "7_vs_country_bowler", getVsCountryBowlerCsv());
+			addCsvToZip(zipFile, "8_home_vs_away_bowler", getHomeVsAwayBowlerCsv());
+			addCsvToZip(zipFile, "9_yearly_stats_bowler", getYearlyStatsBowlerCsv());
 		}
 
 		List<byte[]> result = Collections.singletonList(zipOutputStream.toByteArray());

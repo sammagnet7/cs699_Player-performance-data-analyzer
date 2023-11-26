@@ -11,6 +11,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -38,9 +44,6 @@ import iitb.cs699.playerStatAnalyser.repo.VsCountryBatsmanRepository;
 import iitb.cs699.playerStatAnalyser.repo.VsCountryBowlerRepository;
 import iitb.cs699.playerStatAnalyser.repo.YearlyStatsBatsmanRepository;
 import iitb.cs699.playerStatAnalyser.repo.YearlyStatsBowlerRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -103,9 +106,6 @@ public class CsvUploadService {
 	 */
 	@Autowired
 	private PlayerOverviewRepository playerOverviewRepo;
-	
-	
-	
 
 	/**
 	 * Method to upload a ZIP file containing CSV files and process each CSV file.
@@ -117,30 +117,35 @@ public class CsvUploadService {
 
 		try (ZipInputStream zipInputStream = new ZipInputStream(zipFile.getInputStream())) {
 
+			TreeMap<String, ByteArrayOutputStream> entriesMap = new TreeMap<>();
+
 			ZipEntry entry;
-
 			while ((entry = zipInputStream.getNextEntry()) != null) {
-
-				String originalFilename = entry.getName();
-				if (originalFilename == null || originalFilename.isEmpty()) {
-					continue;
-				}
-				String tableName = getTableName(originalFilename);
-
-				// Read the CSV content into a byte array
-				ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				byte[] buffer = new byte[1024];
-				int len;
-				while ((len = zipInputStream.read(buffer)) > 0) {
-					byteArrayOutputStream.write(buffer, 0, len);
+				int bytesRead;
+
+				while ((bytesRead = zipInputStream.read(buffer)) != -1) {
+					baos.write(buffer, 0, bytesRead);
 				}
 
+				String tableName = getTableName(entry.getName());
+				entriesMap.put(tableName, baos);
+			}
+
+			// Process and print the content of entries in sorted order
+			for (Map.Entry<String, ByteArrayOutputStream> entryMap : entriesMap.entrySet()) {
+
+				String tableName = entryMap.getKey();
+
+				ByteArrayOutputStream baos = entryMap.getValue();
+				
 				// Create a new ByteArrayInputStream for each CSV entry
-				try (InputStream csvInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray())) {
+				try (InputStream csvInputStream = new ByteArrayInputStream(baos.toByteArray())) {
 					processIndividualCsvFile(csvInputStream, tableName);
 				}
-
 			}
+
 		}
 	}
 
@@ -159,31 +164,31 @@ public class CsvUploadService {
 			if (csvParser.iterator().hasNext()) {
 
 				switch (tableName) {
-				case "player_overview":
+				case "1_player_overview":
 					processPlayerOverview(csvParser);
 					break;
-				case "career_avg_batsman":
+				case "2_career_avg_batsman":
 					processCareerAvgBatsman(csvParser);
 					break;
-				case "vs_country_batsman":
+				case "3_vs_country_batsman":
 					processVsCountryBatsman(csvParser);
 					break;
-				case "home_vs_away_batsman":
+				case "4_home_vs_away_batsman":
 					processHomeVsAwayBatsman(csvParser);
 					break;
-				case "yearly_stats_batsman":
+				case "5_yearly_stats_batsman":
 					processYearlyStatsBatsman(csvParser);
 					break;
-				case "career_avg_bowler":
+				case "6_career_avg_bowler":
 					processCareerAvgBowler(csvParser);
 					break;
-				case "vs_country_bowler":
+				case "7_vs_country_bowler":
 					processVsCountryBowler(csvParser);
 					break;
-				case "home_vs_away_bowler":
+				case "8_home_vs_away_bowler":
 					processHomeVsAwayBowler(csvParser);
 					break;
-				case "yearly_stats_bowler":
+				case "9_yearly_stats_bowler":
 					processYearlyStatsBowler(csvParser);
 					break;
 				default:
@@ -205,9 +210,9 @@ public class CsvUploadService {
 	 * @return The table name.
 	 */
 	private String getTableName(String fileName) {
-				
-		String[] tokens= fileName.split(".csv")[0].toLowerCase().split("/");
-		return tokens[ tokens.length - 1];
+
+		String[] tokens = fileName.split(".csv")[0].toLowerCase().split("/");
+		return tokens[tokens.length - 1];
 	}
 
 	/**
@@ -221,7 +226,7 @@ public class CsvUploadService {
 
 		csvParser.forEach(record -> {
 			PlayerOverview playerOverview = new PlayerOverview();
-			playerOverview.setRowId( Integer.parseInt(record.get("row_id")) );
+			playerOverview.setRowId(Integer.parseInt(record.get("row_id")));
 			playerOverview.setPId(Integer.parseInt(record.get("p_id")));
 			playerOverview.setFullName(record.get("full_name"));
 			playerOverview.setBorn(record.get("born"));
@@ -246,7 +251,7 @@ public class CsvUploadService {
 		careerAvgBatsmanRepo.deleteAll();
 		csvParser.forEach(record -> {
 			CareerAvgBatsman careerAvgBatsman = new CareerAvgBatsman();
-			careerAvgBatsman.setRowId( Integer.parseInt(record.get("row_id")) );
+			careerAvgBatsman.setRowId(Integer.parseInt(record.get("row_id")));
 			careerAvgBatsman.setPId(Integer.parseInt(record.get("p_id")));
 			careerAvgBatsman.setSpan(record.get("span"));
 			careerAvgBatsman.setInns(record.get("inns"));
@@ -272,10 +277,10 @@ public class CsvUploadService {
 	private void processVsCountryBatsman(CSVParser csvParser) {
 
 		vsCountryBatsmanRepo.deleteAll();
-		
+
 		csvParser.forEach(record -> {
 			VsCountryBatsman vsCountryBatsman = new VsCountryBatsman();
-			vsCountryBatsman.setRowId( Integer.parseInt(record.get("row_id")) );
+			vsCountryBatsman.setRowId(Integer.parseInt(record.get("row_id")));
 			vsCountryBatsman.setPId(Integer.parseInt(record.get("p_id")));
 			vsCountryBatsman.setCountry(record.get("country"));
 			vsCountryBatsman.setInns(record.get("inns"));
@@ -298,7 +303,7 @@ public class CsvUploadService {
 		homeVsAwayBatsmanRepo.deleteAll();
 		csvParser.forEach(record -> {
 			HomeVsAwayBatsman homeVsAwayBatsman = new HomeVsAwayBatsman();
-			homeVsAwayBatsman.setRowId( Integer.parseInt(record.get("row_id")) );
+			homeVsAwayBatsman.setRowId(Integer.parseInt(record.get("row_id")));
 			homeVsAwayBatsman.setPId(Integer.parseInt(record.get("p_id")));
 			homeVsAwayBatsman.setVenue(record.get("venue"));
 			homeVsAwayBatsman.setInns(record.get("inns"));
@@ -321,7 +326,7 @@ public class CsvUploadService {
 		yearlyStatsBatsmanRepo.deleteAll();
 		csvParser.forEach(record -> {
 			YearlyStatsBatsman yearlyStatsBatsman = new YearlyStatsBatsman();
-			yearlyStatsBatsman.setRowId( Integer.parseInt(record.get("row_id")) );
+			yearlyStatsBatsman.setRowId(Integer.parseInt(record.get("row_id")));
 			yearlyStatsBatsman.setPId(Integer.parseInt(record.get("p_id")));
 			yearlyStatsBatsman.setYear(record.get("year"));
 			yearlyStatsBatsman.setInns(record.get("inns"));
@@ -344,7 +349,7 @@ public class CsvUploadService {
 		careerAvgBowlerRepo.deleteAll();
 		csvParser.forEach(record -> {
 			CareerAvgBowler careerAvgBowler = new CareerAvgBowler();
-			careerAvgBowler.setRowId( Integer.parseInt(record.get("row_id")) );
+			careerAvgBowler.setRowId(Integer.parseInt(record.get("row_id")));
 			careerAvgBowler.setPId(Integer.parseInt(record.get("p_id")));
 			careerAvgBowler.setSpan(record.get("span"));
 			careerAvgBowler.setInns(record.get("inns"));
@@ -372,7 +377,7 @@ public class CsvUploadService {
 		vsCountryBowlerRepo.deleteAll();
 		csvParser.forEach(record -> {
 			VsCountryBowler vsCountryBowler = new VsCountryBowler();
-			vsCountryBowler.setRowId( Integer.parseInt(record.get("row_id")) );
+			vsCountryBowler.setRowId(Integer.parseInt(record.get("row_id")));
 			vsCountryBowler.setPId(Integer.parseInt(record.get("p_id")));
 			vsCountryBowler.setCountry(record.get("country"));
 			vsCountryBowler.setInns(record.get("inns"));
@@ -397,7 +402,7 @@ public class CsvUploadService {
 		homeVsAwayBowlerRepo.deleteAll();
 		csvParser.forEach(record -> {
 			HomeVsAwayBowler homeVsAwayBowler = new HomeVsAwayBowler();
-			homeVsAwayBowler.setRowId( Integer.parseInt(record.get("row_id")) );
+			homeVsAwayBowler.setRowId(Integer.parseInt(record.get("row_id")));
 			homeVsAwayBowler.setPId(Integer.parseInt(record.get("p_id")));
 			homeVsAwayBowler.setVenue(record.get("venue"));
 			homeVsAwayBowler.setInns(record.get("inns"));
@@ -422,7 +427,7 @@ public class CsvUploadService {
 		yearlyStatsBowlerRepo.deleteAll();
 		csvParser.forEach(record -> {
 			YearlyStatsBowler yearlyStatsBowler = new YearlyStatsBowler();
-			yearlyStatsBowler.setRowId( Integer.parseInt(record.get("row_id")) );
+			yearlyStatsBowler.setRowId(Integer.parseInt(record.get("row_id")));
 			yearlyStatsBowler.setPId(Integer.parseInt(record.get("p_id")));
 			yearlyStatsBowler.setYear(record.get("year"));
 			yearlyStatsBowler.setInns(record.get("inns"));
