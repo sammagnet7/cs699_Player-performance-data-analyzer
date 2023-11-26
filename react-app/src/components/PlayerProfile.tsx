@@ -35,7 +35,7 @@ export async function fetchFromAPI(url: string, pId: number | undefined) {
     }
 }
 interface GeneralPlayerData {
-    pId: number,
+    pid: number,
     inns: string,
     runs: string,
     ave: string,
