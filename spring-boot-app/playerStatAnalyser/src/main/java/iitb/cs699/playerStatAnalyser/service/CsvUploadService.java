@@ -159,31 +159,31 @@ public class CsvUploadService {
 			if (csvParser.iterator().hasNext()) {
 
 				switch (tableName) {
-				case "player_overview":
+				case "1_player_overview":
 					processPlayerOverview(csvParser);
 					break;
-				case "career_avg_batsman":
+				case "2_career_avg_batsman":
 					processCareerAvgBatsman(csvParser);
 					break;
-				case "vs_country_batsman":
+				case "3_vs_country_batsman":
 					processVsCountryBatsman(csvParser);
 					break;
-				case "home_vs_away_batsman":
+				case "4_home_vs_away_batsman":
 					processHomeVsAwayBatsman(csvParser);
 					break;
-				case "yearly_stats_batsman":
+				case "5_yearly_stats_batsman":
 					processYearlyStatsBatsman(csvParser);
 					break;
-				case "career_avg_bowler":
+				case "6_career_avg_bowler":
 					processCareerAvgBowler(csvParser);
 					break;
-				case "vs_country_bowler":
+				case "7_vs_country_bowler":
 					processVsCountryBowler(csvParser);
 					break;
-				case "home_vs_away_bowler":
+				case "8_home_vs_away_bowler":
 					processHomeVsAwayBowler(csvParser);
 					break;
-				case "yearly_stats_bowler":
+				case "9_yearly_stats_bowler":
 					processYearlyStatsBowler(csvParser);
 					break;
 				default:

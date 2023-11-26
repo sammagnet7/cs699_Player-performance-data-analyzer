@@ -187,3 +187,19 @@ drop table vs_country_batsman;
 drop table vs_country_bowler;
 drop table yearly_stats_batsman;
 drop table yearly_stats_bowler;
+
+
+
+
+drop table career_avg_bowler;
+drop table home_vs_away_batsman;
+drop table home_vs_away_bowler;
+
+drop table vs_country_batsman;
+drop table vs_country_bowler;
+drop table yearly_stats_batsman;
+drop table yearly_stats_bowler;
+
+
+drop table career_avg_batsman;
+drop table player_overview;
