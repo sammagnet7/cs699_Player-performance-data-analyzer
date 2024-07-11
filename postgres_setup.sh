@@ -1,11 +1,21 @@
-#commands to run in local machine and server machine where postgres is installed
-@local_machine: 
-zip Csv.zip Csv/*
-scp Csv.zip soumikdutta@10.157.3.213:~/SoumikD/cs699/
-@server_machine:    
-cd ~/SoumikD/cs699/
-unzip Csv.zip
-psql -U cs699 -d player -h 127.0.0.1 -W
+Postgres Db installation steps:
+1. sudo apt-get update
+2. sudo apt-get install postgresql postgresql-contrib
+3. dpkg --status postgresql
+4. sudo nano /etc/postgresql/14/main/postgresql.conf => Add line: 
+		listen_addresses = '*'
+5. sudo nano /etc/postgresql/14/main/pg_hba.conf  => Add line: 
+		host    all             all             0.0.0.0/0               md5                                     
+6. sudo service postgresql restart 
+----------------------------------
+Postgres Database creation steps:
+1. sudo -u postgres psql  
+2. create user cs699;
+3. alter role cs699 with login;
+4. \password cs699
+5. create database player  with owner = cs699;
+6. exit;
+7. Run create table queries below
 
 ---------------------------------
 --All create table scripts below :
@@ -174,8 +184,6 @@ CREATE TABLE yearly_stats_bowler(
 	  ON DELETE CASCADE
 );
 
-
-
 --------------------
 #Drop table scripts
 --------------------
@@ -190,3 +198,18 @@ drop table vs_country_batsman;
 drop table yearly_stats_batsman;
 
 drop table player_overview;
+
+----------------------------------
+# Upload the web scrapped csv files to remote postgres server
+#commands to run in local machine and server machine where postgres is installed
+@local_machine: 
+cd .../Player_perf_CS699_IITB
+zip Csv.zip Csv/*
+scp Csv.zip soumik@10.157.3.44:~/Documents/SoumikD/cs699/
+
+@server_machine:    
+cd ~/Documents/SoumikD/cs699/
+unzip Csv.zip
+psql -U cs699 -d player -h 127.0.0.1 -W
+Run the postgres_import.sh script
+----------------------------------
