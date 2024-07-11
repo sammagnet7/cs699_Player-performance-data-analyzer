@@ -58,7 +58,8 @@ function Searchbar(setSearch: SearchProps) {
 
   useEffect(() => {
     // Try to fetch data from the local storage
-    const cachedData = getFromLocalStorage(CACHE_KEY);
+    // const cachedData = getFromLocalStorage(CACHE_KEY);
+    const cachedData = null;
     if (cachedData) {
       const parsedData = JSON.parse(cachedData);
       // const playerNames = parsedData.map((player: Player) => player.fullName);
@@ -73,7 +74,7 @@ function Searchbar(setSearch: SearchProps) {
           setPredefinedSuggestions(apiData);
 
           // Cache the data in local storage
-          saveToLocalStorage(CACHE_KEY, JSON.stringify(apiData));
+          // saveToLocalStorage(CACHE_KEY, JSON.stringify(apiData));
         })
         .catch((error) => {
           console.error(error);
