@@ -3,10 +3,6 @@
  */
 package iitb.cs699.playerStatAnalyser.controller;
 
-/**
- * Import necessary classes for the controller.
- */
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
