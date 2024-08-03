@@ -12,4 +12,5 @@ cd react-app
 npm run dev
 endpoitn: http://localhost:5173/
 
-Step by step demo video explanation of this project: https://drive.google.com/file/d/1HtmGu2PFeBYo9zfO1k_RgqLIyDiv9Un3/view?usp=drive_link
+Step by step demo video explanation of this project: 
+  https://drive.google.com/file/d/1HtmGu2PFeBYo9zfO1k_RgqLIyDiv9Un3/view?usp=drive_link
