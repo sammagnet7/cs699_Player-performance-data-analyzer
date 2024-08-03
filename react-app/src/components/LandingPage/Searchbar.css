@@ -1,0 +1,51 @@
+.p-icon {
+  width: 4em;
+  height: 4em;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+#hero-text {
+  color: #fff;
+}
+
+#searchbar {
+  width: 35%;
+}
+
+ul {
+  position: absolute;
+  top: 60%;
+  background-color: #fff;
+  border-radius: 30px;
+  max-height: 30vh;
+  width: 25vw;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  overflow: scroll;
+  margin-top: 0.2em;
+}
+
+li {
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  #searchbar {
+    width: 80%;
+  }
+
+  .p-icon {
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  ul {
+    width: 90%;
+    /* Adjust the width to a percentage that fits better on mobile screens */
+    max-width: 100%;
+    /* Ensure it takes up the full width of the container */
+  }
+}

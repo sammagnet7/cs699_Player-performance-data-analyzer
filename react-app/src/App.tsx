@@ -1,12 +1,13 @@
 import './App.css'
 import { Routes, Route, useNavigate }
   from 'react-router-dom';
-import { Player } from './components/Searchbar'
 import { useState, createContext, useContext } from 'react'
-import SearchPage from './components/SearchPage';
-import PlayerProfile from './components/PlayerProfile';
-import ComparePlayers from './components/ComparePlayers';
+import SearchPage from './components/LandingPage/SearchPage';
+import PlayerProfile from './components/PlayerProfile/PlayerProfile';
+import ComparePlayers from './components/ComparePlayer/ComparePlayers';
 import { ReactNode } from 'react';
+import { Player } from './components/Types/types';
+
 export interface PlayerContextType {
   player: Player | null;
   setPlayer: (player: Player) => void;
