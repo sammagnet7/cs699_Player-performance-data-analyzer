@@ -12,5 +12,7 @@ cd react-app
 npm run dev
 endpoitn: http://localhost:5173/
 
+Project Readme: 
+  https://github.com/sammagnet7/cs699_Player-performance-data-analyzer/tree/main/docs
 Step by step demo video explanation of this project: 
   https://drive.google.com/file/d/1HtmGu2PFeBYo9zfO1k_RgqLIyDiv9Un3/view?usp=drive_link
